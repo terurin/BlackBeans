@@ -1,0 +1,11 @@
+#log files
+*.log
+*.rpt
+#temp directory
+*.cydsn/codegentemp/
+
+# Results
+*.cydsn/DP8051/*
+
+#user files
+*.cywrk.*
