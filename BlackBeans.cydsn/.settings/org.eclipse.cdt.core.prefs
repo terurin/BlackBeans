@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/BUILD_OPTIONS/delimiter=;
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/BUILD_OPTIONS/operation=append
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/BUILD_OPTIONS/value=-mcpu\=cortex-m3 -mthumb
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/LINKER_OPTIONS/delimiter=;
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/LINKER_OPTIONS/operation=append
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/LINKER_OPTIONS/value=${workspace_loc\:/${ProjName}}/Generated_Source/${PSOC_TYPE}/cm3gcc.ld" -specs\=nano.specs -march\=armv7-m -mthumb -mfix-cortex-m3-ldrd -Xlinker --gc-sections
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/append=true
+environment/project/com.cypress.psoccreatorimport.PSoC5DebugConfiguration.1241153141/appendContributed=true
