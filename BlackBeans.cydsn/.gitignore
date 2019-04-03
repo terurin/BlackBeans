@@ -1,2 +1,7 @@
-
 /Debug/
+/codegentemp/
+/Generated_Source/
+/Export/
+/.vscode/
+/CortexM3
+*.cyprj.*

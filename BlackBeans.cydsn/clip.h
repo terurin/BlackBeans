@@ -5,12 +5,17 @@
     #include <stdint.h>
     #include "dsptype.h"
     
+    static inline int16_t clip16(int32_t x){
+        if (x>INT16_MAX)return INT16_MAX;
+        if (INT16_MIN>x)return INT16_MIN;
+        return x;
+    }
     static inline int32_t clip32(int64_t x){
         if (x>INT32_MAX)return INT32_MAX;
         if (INT32_MIN>x)return INT32_MIN;
         return x;
     }
-
+    
     static inline int32_t clip32_add(int32_t x,int32_t y){
         int64_t add = (int64_t)x+(int64_t)y;
         if (add>INT32_MAX)return INT32_MAX;

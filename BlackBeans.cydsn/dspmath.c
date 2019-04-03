@@ -6,7 +6,7 @@
 #include "clip.h"
 
 const q1516_t q1516_pi=Q1516_CAST(M_PI);
-
+const q1516_t q1516_2pi=Q1516_CAST(M_PI*2);
 
 
 uint32_t fact(uint32_t n){

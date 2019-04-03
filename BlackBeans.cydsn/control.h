@@ -2,33 +2,64 @@
 #ifndef __CONTROL_HEADER_GURAD__
 #define __CONTROL_HEADER_GUARD__
 
-    #include "dsptype.h"
-    #include <stddef.h>
-    
-    struct pidc{
-        q1516_t p,i,d;
-        q1516_t output_last;
-        q1516_t error_sum;
-        q1516_t error_last;
-    };
-   
-    typedef struct pidc pidc_t;
-    
-    void pidc_init(pidc_t* obj,q1516_t p,q1516_t i,q1516_t d);
-    q1516_t pidc_control(pidc_t* obj,q1516_t error);
-    q1516_t pidc_error(const pidc_t* obj);
-    
-    //タイヤの制御を行う
-    //速度からモータへのduty比を計算する
-    struct wheel{
-        q1516_t gain;
-    };
-    typedef struct wheel wheel_t;
-    
-    void wheel_init(wheel_t*, q1516_t radius);
-    q31_t wheel_control(wheel_t*, );
-    
-    
-    
+#include <stddef.h>
+#include "dsptype.h"
+
+struct pid_controllor {
+    uint32_t interval_us;
+    q1516_t p, i, d;
+    q1516_t result, last_per_us, sum;
+};
+typedef struct pid_controllor pid_controllor_t;
+
+void pid_controllor_init(pid_controllor_t*, uint32_t interval_us, q1516_t p, q1516_t i, q1516_t d);
+
+q1516_t pid_controllor_control(pid_controllor_t*, q1516_t error);
+bool pid_controllor_overflow(const pid_controllor_t*, q1516_t limit);
+
+//タイヤの制御を行う
+
+q1516_t wheel_pulse_per_m(q1516_t radius_m,     //タイヤの直径[m]
+                          q1516_t gear,         //ギア比[タイヤ/内部ギア]
+                          int pulse_per_rocate  //内部ギア1周あたりのパルス数
+);
+
+typedef void (*driver_callback_t)(q1516_t);
+typedef int32_t (*encoder_callback_t)();
+
+struct wheel {
+    pid_controllor_t* controllor;
+    driver_callback_t driver;    // non-NULL
+    encoder_callback_t encoder;  // non-NULL
+    q1516_t pulse_per_m;         // non-NULL
+};
+
+typedef struct wheel wheel_t;
+//所有権はwheel_controllorに移動する
+void wheel_init(wheel_t*,
+                driver_callback_t driver,
+                encoder_callback_t encoder,
+                pid_controllor_t* controllor,
+                q1516_t pulse_per_m);
+q1516_t wheel_move_m(wheel_t*, q1516_t target_m);
+
+//モーターの配置の記述用(低速)
+struct wheel_layout {
+    q1516_t radius_m;
+    q1516_t sin, cos;
+};
+typedef struct wheel_layout wheel_layout_t;
+
+void wheel_layout_init(wheel_layout_t*, float radius_m, float angle_rad);
+
+struct omniwheel {
+    size_t size;
+    wheel_t* wheels;
+    wheel_layout_t* layouts;
+};
+typedef struct omniwheel omniwheel_t;
+
+void omniwheel_init(omniwheel_t* omniwheel, wheel_t* wheels, wheel_layout_t* layouts, size_t n);
+void omniwheel_move(omniwheel_t*, q1516_t vx, q1516_t vy, q1516_t rps);
+
 #endif
-    

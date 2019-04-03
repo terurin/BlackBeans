@@ -29,7 +29,7 @@ module BLDCDivider (
 //`#start footer` -- edit after this line, do not edit this line
 
 reg [5:0] resets_mask;
-always @(posedge clock)begin
+always @(posedge clock or posedge kill)begin
     if (kill)begin 
         resets_mask<=6'b111_000;
     end else if (!pulse)begin

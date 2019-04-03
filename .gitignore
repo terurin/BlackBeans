@@ -3,3 +3,16 @@
 
 #user files
 *.cywrk.*
+*.log
+*.o
+*.lst
+*.log
+*.a
+*.rpt
+*.txt
+*.a
+*.html
+
+#env
+.vscode/
+BlackBeans.code-workspace

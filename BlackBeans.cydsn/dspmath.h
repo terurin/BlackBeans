@@ -5,6 +5,7 @@
     #include "dsptype.h"
     
     extern const q1516_t q1516_pi;
+    extern const q1516_t q1516_2pi;
     //簡易計算用
     static inline q1516_t q1516_div(q1516_t x,q1516_t y){
         return ((int64_t)x<<16)/y;
