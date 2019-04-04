@@ -17,6 +17,7 @@
 #include "dspmath.h"
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
+#include "Tasks/wheels.h"
 static void mainTask( void *pvParameters );
 void prvHardwareSetup( void )
 {
@@ -38,13 +39,18 @@ int main(void){
     
     UART_Start();
     CyGlobalIntEnable; /* Enable global interrupts. */
-    xTaskCreate(mainTask,"main",100,NULL,1,NULL);
+    //xTaskCreate(mainTask,"main",100,NULL,1,NULL);
+    
+    task_wheels_t wheels;
+    task_wheels_init(&wheels,100,NULL,NULL,NULL,NULL);
+    task_wheels_lanch(&wheels,"wheel");
+    
     vTaskStartScheduler();    
 
 }
 
 static void mainTask( void *pvParameters ){
-  const TickType_t xTicksToDelay = 1000 / portTICK_PERIOD_MS;
+  const TickType_t xTicksToDelay = 1000 * portTICK_PERIOD_MS;
 
   while(1) {
       vTaskDelay( xTicksToDelay );
