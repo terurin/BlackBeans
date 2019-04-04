@@ -5,11 +5,8 @@
 #include <string.h>
 #include "clip.h"
 #include "dspmath.h"
-void pid_controllor_init(pid_controllor_t* pid,
-                         q1516_t interval_us,
-                         q1516_t p,
-                         q1516_t i,
-                         q1516_t d) {
+void pid_controllor_init(pid_controllor_t*pid ,
+    uint32_t interval_us, q1516_t p, q1516_t i, q1516_t d){
     assert(pid);
     pid->interval_us = interval_us;
     pid->p = p;
@@ -95,9 +92,10 @@ void omniwheel_init(omniwheel_t* omniwheel, wheel_t* wheels, wheel_layout_t* lay
     assert(layouts);
     omniwheel->wheels = wheels;
     omniwheel->layouts = layouts;
+    omniwheel->size=n;
 }
 
-void omniwheel_move(omniwheel_t* omni, q1516_t vx, q1516_t vy, q1516_t rps) {
+void omniwheel_move_m(omniwheel_t* omni, q1516_t vx, q1516_t vy, q1516_t rps) {
     assert(omni);
     for (size_t i = 0; i < omni->size; i++) {
         wheel_layout_t* layout = &omni->layouts[i];

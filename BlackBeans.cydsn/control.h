@@ -3,6 +3,7 @@
 #define __CONTROL_HEADER_GUARD__
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "dsptype.h"
 
 struct pid_controllor {
@@ -43,10 +44,10 @@ void wheel_init(wheel_t*,
                 q1516_t pulse_per_m);
 q1516_t wheel_move_m(wheel_t*, q1516_t target_m);
 
-//モーターの配置の記述用(低速)
+//モーターの配置の記述用
 struct wheel_layout {
-    q1516_t radius_m;
-    q1516_t sin, cos;
+    q1516_t radius_m,sin,cos;//ベクトル分解用
+   
 };
 typedef struct wheel_layout wheel_layout_t;
 
@@ -60,6 +61,6 @@ struct omniwheel {
 typedef struct omniwheel omniwheel_t;
 
 void omniwheel_init(omniwheel_t* omniwheel, wheel_t* wheels, wheel_layout_t* layouts, size_t n);
-void omniwheel_move(omniwheel_t*, q1516_t vx, q1516_t vy, q1516_t rps);
+void omniwheel_move_m(omniwheel_t*, q1516_t vx, q1516_t vy, q1516_t rps);
 
 #endif
