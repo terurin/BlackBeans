@@ -11,49 +11,27 @@
 */
 #include "project.h"
 
-#include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include "dspmath.h"
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
 #include "Tasks/wheels.h"
-static void mainTask( void *pvParameters );
-void prvHardwareSetup( void )
-{
-/* Port layer functions that need to be copied into the vector table. */
-extern void xPortPendSVHandler( void );
-extern void xPortSysTickHandler( void );
-extern void vPortSVCHandler( void );
-extern cyisraddress CyRamVectors[];
+#include "Driver/timer.h"
+#include "rtos.h"
 
-	/* Install the OS Interrupt Handlers. */
-	CyRamVectors[ 11 ] = ( cyisraddress ) vPortSVCHandler;
-	CyRamVectors[ 14 ] = ( cyisraddress ) xPortPendSVHandler;
-	CyRamVectors[ 15 ] = ( cyisraddress ) xPortSysTickHandler;
-}
+static void hardward_init();
 
 int main(void){
-        
-    prvHardwareSetup();
+    rtos_init();
+    hardward_init();
+    CyGlobalIntEnable; 
     
-    UART_Start();
-    CyGlobalIntEnable; /* Enable global interrupts. */
-    //xTaskCreate(mainTask,"main",100,NULL,1,NULL);
-    
-    task_wheels_t wheels;
-    task_wheels_init(&wheels,100,NULL,NULL,NULL,NULL);
-    task_wheels_lanch(&wheels,"wheel");
-    
-    vTaskStartScheduler();    
-
+    rtos_lanch();
 }
 
-static void mainTask( void *pvParameters ){
-  const TickType_t xTicksToDelay = 1000 * portTICK_PERIOD_MS;
-
-  while(1) {
-      vTaskDelay( xTicksToDelay );
-  }
+static void hardward_init(){
+    UART_Start();   
+    logtimer_init();
+    profiling_timer_init();
 }
-/* [] END OF FILE */
