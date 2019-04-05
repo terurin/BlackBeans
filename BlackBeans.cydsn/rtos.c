@@ -18,7 +18,7 @@ extern cyisraddress CyRamVectors[];
 
 void rtos_lanch(){
     task_wheels_t wheels;
-    task_wheels_init(&wheels,100,NULL,NULL,NULL,NULL);
+    task_wheels_init(&wheels,100);
     task_wheels_lanch(&wheels,"wheel");
     
     
