@@ -16,13 +16,15 @@
 #include "dspmath.h"
 #include "FreeRTOS/FreeRTOS.h"
 #include "FreeRTOS/task.h"
-#include "Tasks/wheels.h"
+#include "Tasks/wheel.h"
 #include "Driver/timer.h"
+//#include "Driver/adc.h"
 #include "rtos.h"
 
 static void hardward_init();
 
 int main(void){
+    
     rtos_init();
     hardward_init();
     CyGlobalIntEnable; 
