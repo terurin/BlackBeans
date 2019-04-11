@@ -17,7 +17,9 @@ q1516_t** mattrix_convert_float_to_q1516(q1516_t **dest,float** inst,size_t x,si
 //y=Ax
 q1516_t* mattrix_dot_vector(q1516_t * dest,const q1516_t** mattrix,const q1516_t *inst,size_t x,size_t y);
 //~A
-float** mattrix_inverse(float** dest,float** inst,size_t n);
-
+float** mattrix_float_inverse(float** dest,float** inst,size_t n);
+//dump関数[低速]
+char* mattrix_float_dump(char* result,size_t result_size,
+    const float** mattrix,size_t x,size_t y);
 #endif
     

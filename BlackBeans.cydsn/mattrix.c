@@ -2,6 +2,9 @@
 #include <assert.h>
 #include <FreeRTOS/FreeRTOS.h>
 #include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define SWAP(a, b) \
     {typeof(a) __tmp = (a); (a) = (b); (b) = __tmp;}
@@ -14,7 +17,7 @@ float** mattrix_float_new(size_t x,size_t y){
 }
 
 void mattrix_float_delete(float*** mattrix,size_t x,size_t y){
-    assert(mattrix);
+    assert(mattrix);assert(x>0);
     if (!*mattrix)return;
     for (size_t i=0;i<y;i++){
         vPortFree(*mattrix[i]);
@@ -32,7 +35,7 @@ int32_t** mattrix_int32_new(size_t x,size_t y){
 }
 
 void mattrix_int32_delete(int32_t*** mattrix,size_t x,size_t y){
-    assert(mattrix);
+    assert(mattrix);assert(x>0);
     if (!*mattrix)return;
     for (size_t i=0;i<y;i++){
         vPortFree(*mattrix[i]);
@@ -88,7 +91,7 @@ q1516_t* mattrix_dot_vector(q1516_t * d,
     return d;
 }
 
-float** mattrix_inverse(float** dest,float** inst,size_t n){
+float** mattrix_float_inverse(float** dest,float** inst,size_t n){
     assert(dest);
     assert(inst);
     
@@ -122,3 +125,22 @@ float** mattrix_inverse(float** dest,float** inst,size_t n){
     }
     return dest;
 }
+
+char* mattrix_float_dump(char* result,size_t result_size,const float** mattrix,size_t x,size_t y){
+    assert(result);
+    assert(mattrix);
+    char tmp[16];
+    size_t i,j;
+    snprintf(result,result_size,"mattrix[%dx%d]\n",x,y);
+    for (i=0;i<y;i++){
+        for(j=0;j<x-1;j++){
+            snprintf(tmp,sizeof(tmp),"%f,",mattrix[i][j]);
+            strncat(result,tmp,result_size);
+        }
+        snprintf(tmp,sizeof(tmp),"%f\n",mattrix[i][j]);
+        strncat(result,tmp,result_size);
+    }
+    return result;
+}
+
+

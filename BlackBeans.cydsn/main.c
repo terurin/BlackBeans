@@ -20,15 +20,14 @@
 #include "Driver/timer.h"
 //#include "Driver/adc.h"
 #include "rtos.h"
-
+#include "mattrix.h"
+static void test();
 static void hardward_init();
-
 int main(void){
     
     rtos_init();
     hardward_init();
-    CyGlobalIntEnable; 
-    
+    test();
     rtos_lanch();
 }
 
@@ -36,4 +35,17 @@ static void hardward_init(){
     UART_Start();   
     logtimer_init();
     profiling_timer_init();
+    CyGlobalIntEnable; 
+}
+
+void test(){
+    float **mat=mattrix_float_new(3,3);
+    float **inv =mattrix_float_new(3,3);
+    mattrix_float_fill(mat,0,3,3);
+    mat[0][0]=1;
+    mat[1][2]=1;
+    mat[2][1]=1;
+    mattrix_float_inverse(inv,mat,3);
+   
+    
 }
