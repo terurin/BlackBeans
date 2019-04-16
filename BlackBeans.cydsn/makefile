@@ -41,6 +41,21 @@ $(OUT_DIR_CortexM3)/%.o : %.c
 	@"$(CC)" $(CDEPGEN_CortexM3)
 	"$(CC)" -c $(CFLAGS_CortexM3) $< -o $@
 
+$(OUT_DIR_CortexM3)/%.o : FreeRTOS/%.c
+	@mkdir -p $(OUT_DIR_CortexM3)
+	@"$(CC)" $(CDEPGEN_CortexM3)
+	"$(CC)" -c $(CFLAGS_CortexM3) $< -o $@
+
+$(OUT_DIR_CortexM3)/%.o : Driver/%.c
+	@mkdir -p $(OUT_DIR_CortexM3)
+	@"$(CC)" $(CDEPGEN_CortexM3)
+	"$(CC)" -c $(CFLAGS_CortexM3) $< -o $@
+
+$(OUT_DIR_CortexM3)/%.o : Tasks/%.c
+	@mkdir -p $(OUT_DIR_CortexM3)
+	@"$(CC)" $(CDEPGEN_CortexM3)
+	"$(CC)" -c $(CFLAGS_CortexM3) $< -o $@
+
 clean:
 	$(RM) $(RMFLAGS) $(OUT_DIR)
 -include $(DEPS_CortexM3)

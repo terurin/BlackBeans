@@ -39,13 +39,18 @@ static void hardward_init(){
 }
 
 void test(){
+    char result[256];
     float **mat=mattrix_float_new(3,3);
     float **inv =mattrix_float_new(3,3);
     mattrix_float_fill(mat,0,3,3);
     mat[0][0]=1;
     mat[1][2]=1;
     mat[2][1]=1;
+    mattrix_float_dump(result,256,mat,3,3);
+    UART_PutString(result);
     mattrix_float_inverse(inv,mat,3);
-   
+    
+    //mattrix_float_dump(result,80,inv,3,3);
+    //UART_PutString(result);
     
 }

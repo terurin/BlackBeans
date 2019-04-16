@@ -134,10 +134,10 @@ char* mattrix_float_dump(char* result,size_t result_size,const float** mattrix,s
     snprintf(result,result_size,"mattrix[%dx%d]\n",x,y);
     for (i=0;i<y;i++){
         for(j=0;j<x-1;j++){
-            snprintf(tmp,sizeof(tmp),"%f,",mattrix[i][j]);
+            snprintf(tmp,sizeof(tmp),"%4f,",mattrix[i][j]);
             strncat(result,tmp,result_size);
         }
-        snprintf(tmp,sizeof(tmp),"%f\n",mattrix[i][j]);
+        snprintf(tmp,sizeof(tmp),"%4f\n",mattrix[i][j]);
         strncat(result,tmp,result_size);
     }
     return result;

@@ -5,3 +5,6 @@
 /.vscode/
 /CortexM3
 *.cyprj.*
+/output
+/Export
+/.setting

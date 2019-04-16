@@ -68,7 +68,7 @@ void task_wheel_process(wheel_t* wheel){
     assert(wheel);
     const portTickType interval_tick=wheel->interval_us/portTICK_PERIOD_US;
     portTickType last_tick=xTaskGetTickCount();
-    tick_t last; volatile uint32_t log;
+    tick_t last;// volatile uint32_t log;
     forever(){
         last=profiling_timer_now();
         //update
@@ -88,7 +88,7 @@ void task_wheel_process(wheel_t* wheel){
         const q31_t fw_duty =(fb_v>0)?clip32(((q1548_t)fw_v<<48)/fb_v):0;
         //output 
         if (wheel->pwm)wheel->pwm(wheel->pwm_object,fw_duty);
-        log=profiling_timer_duration(&last);
+        //log=profiling_timer_duration(&last);
         vTaskDelayUntil(&last_tick,interval_tick);       
     }
 }
