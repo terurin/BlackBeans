@@ -1,0 +1,15 @@
+# output
+*.cyfit
+*.
+
+#log files
+*.log
+*.rpt
+*.html
+
+#directory
+/Export
+/codegentemp
+
+#local
+/*.cyprj.*
