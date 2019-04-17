@@ -6,8 +6,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <dsptype.h>
-#include <FreeRTOS/FreeRTOS.h>
-#include <FreeRTOS/semphr.h>
+#include <FreeRTOS.h>
+#include <semphr.h>
 #include "pidc.h"
     
 struct wheel{

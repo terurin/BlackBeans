@@ -1,6 +1,6 @@
 #include "mattrix.h"
 #include <assert.h>
-#include <FreeRTOS/FreeRTOS.h>
+#include <FreeRTOS.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>

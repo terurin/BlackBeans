@@ -1,13 +1,13 @@
 #include "wheel.h"
 #include <assert.h>
-#include <FreeRTOS/task.h>
+#include <task.h>
 #include <Driver/timer.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
 #include <clip.h>
 #define forever() for(;;)
-
+#include <string.h>
 //略語　
 //fb ... feedback
 //tg ... target

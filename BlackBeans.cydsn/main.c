@@ -14,8 +14,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "dspmath.h"
-#include "FreeRTOS/FreeRTOS.h"
-#include "FreeRTOS/task.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "Tasks/wheel.h"
 #include "Driver/timer.h"
 //#include "Driver/adc.h"

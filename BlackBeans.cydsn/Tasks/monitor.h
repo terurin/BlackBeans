@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include <FreeRTOS/FreeRTOS.h>
-#include <FreeRTOS/semphr.h>
+#include <FreeRTOS.h>
+#include <semphr.h>
 #include <dsptype.h>
     
 #define TASK_MONITOR_RECORD_SIZE 4

@@ -1,6 +1,6 @@
 #include "timer.h"
 #include <project.h>
-#include <FreeRTOS/FreeRTOS.h>
+#include <FreeRTOS.h>
 #include <assert.h>
 
 static uint64_t logtimer_tick_ms;

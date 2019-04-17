@@ -1,5 +1,5 @@
 #include "monitor.h"
-#include <FreeRTOS/task.h>
+#include <task.h>
 
 #include <project.h>
 #include <assert.h>

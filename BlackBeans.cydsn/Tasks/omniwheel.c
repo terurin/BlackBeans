@@ -2,8 +2,8 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h>
-#include <FreeRTOS/FreeRTOS.h>
-#include <FreeRTOS/task.h>
+#include <FreeRTOS.h>
+#include <task.h>
 
 
 

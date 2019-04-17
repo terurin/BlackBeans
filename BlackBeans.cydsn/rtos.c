@@ -1,7 +1,7 @@
 #include "rtos.h"
 #include <project.h>
-#include <FreeRTOS/FreeRTOS.h>
-#include <FreeRTOS/task.h>
+#include <FreeRTOS.h>
+#include <task.h>
 #include <Tasks/wheel.h>
 #include <Tasks/monitor.h>
 void rtos_init( void ){
