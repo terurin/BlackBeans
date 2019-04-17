@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+
 #include <clip.h>
 #define forever() for(;;)
 #include <string.h>
@@ -16,7 +17,8 @@
 //no
 
 float wheel_m_per_pulse(float radius_m,float gear,int pulse_per_rocate){
-    return ((2.0f*M_PI*gear*radius_m)/pulse_per_rocate)*(1<<16);
+    const static float m_pi=3.14159265358979323846;
+    return ((2.0f*m_pi*gear*radius_m)/pulse_per_rocate)*(1<<16);
 }
 
 void task_wheel_init(wheel_t* wheel,uint32_t interval_us,float m_per_pulse){   

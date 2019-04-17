@@ -4,10 +4,10 @@
 #include <assert.h>
 #include <math.h>
 #include "clip.h"
-
-const q1516_t q1516_pi=Q1516_CAST(M_PI);
-const q1516_t q1516_2pi=Q1516_CAST(M_PI*2);
-
+#define M_PI 3.14159265358979323846
+const q1516_t q1516_pi=Q1516_CAST( M_PI);
+const q1516_t q1516_2pi=Q1516_CAST( M_PI*2);
+#undef M_PI
 
 uint32_t fact(uint32_t n){
     static int32_t memo[16]={1,1,-1};

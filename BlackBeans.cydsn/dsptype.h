@@ -10,9 +10,7 @@
     typedef int64_t q3132_t;
     typedef int64_t q1548_t;
     typedef int32_t q31_t;
-    
-    
-    
-    #define Q1516_CAST(X) (X*(1<<16))
+   
+    #define Q1516_CAST(X) ((X)*(1<<16))
 #endif
     

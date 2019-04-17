@@ -6,8 +6,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SWAP(a, b) \
-    {typeof(a) __tmp = (a); (a) = (b); (b) = __tmp;}
+static inline void swap_rows(float** p,float**q){
+    float* row=*p;
+    *p=*q;
+    *q=row;
+}
+
 float** mattrix_float_new(size_t x,size_t y){
     float** mattrix=(float**)pvPortMalloc(sizeof(float*)*y);
     for (size_t i=0;i<y;i++){
@@ -108,8 +112,9 @@ float** mattrix_float_inverse(float** dest,float** inst,size_t n){
                 max_idx=j;
             }
         }
-        SWAP(inst[i],inst[max_idx]);
-        SWAP(dest[i],dest[max_idx]);
+        swap_rows(&inst[i],&inst[max_idx]);
+        swap_rows(&dest[i],&dest[max_idx]);
+
         //inst[i][i]を1にする
         float s=inst[i][i];
         for (size_t j=i;j<n;j++)inst[i][j]/=s;
