@@ -2,7 +2,7 @@
 #ifndef __MATTRIX_HEADER_GUARD__
 #define __MATTRIX_HEADER_GUARD__
     
-#include <dsptype.h>
+#include "dsptype.h"
 #include <stddef.h>
 //メモリ確保&開放
 float** mattrix_float_new(size_t x,size_t y);

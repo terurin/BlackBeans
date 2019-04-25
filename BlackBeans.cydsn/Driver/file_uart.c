@@ -6,7 +6,7 @@ static size_t min(size_t x,size_t y){
 }
 
 
-void file_uart_init(file_t* file,size_t size){
+void file_uart_init(file_t*file ,size_t size){
     assert(file);
     file_base_init(file,size);
     file->object=NULL;

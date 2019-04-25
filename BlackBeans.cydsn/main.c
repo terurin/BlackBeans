@@ -18,37 +18,33 @@
 #include "task.h"
 #include "Tasks/wheel.h"
 #include "Driver/timer.h"
-//#include "Driver/adc.h"
 #include "rtos.h"
 #include "mattrix.h"
+#include "Driver/file_uart.h"
+#include <string.h>
 static void test();
 static void hardward_init();
+
+static file_t uart;
 int main(void){
     
     rtos_init();
     hardward_init();
     test();
+    //while(1);
     rtos_lanch();
 }
 
 static void hardward_init(){
-    UART_Start();   
+    CyGlobalIntEnable;     
     logtimer_init();
     profiling_timer_init();
-    CyGlobalIntEnable; 
+    //file_uart_init(&uart,32);
 }
 
 void test(){
-    char result[256];
-    float **mat=mattrix_float_new(3,3);
-    float **inv =mattrix_float_new(3,3);
-    mattrix_float_fill(mat,0,3,3);
-    mat[0][0]=1;
-    mat[1][2]=1;
-    mat[2][1]=1;
-    mattrix_float_dump(result,256,mat,3,3);
-    UART_PutString(result);
-    mattrix_float_inverse(inv,mat,3);
+    //file_puts(&uart,"hello world\r");
+    //file_flush(&uart);
     
     //mattrix_float_dump(result,80,inv,3,3);
     //UART_PutString(result);

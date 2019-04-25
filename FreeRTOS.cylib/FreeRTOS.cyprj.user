@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_7a7929f8-5e3b-4f86-a093-2d4ee6513111 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtProjectCustomData" version="1">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="47ec7058-2f43-4a2f-ae73-172624e235df">
+<CyGuid_47ec7058-2f43-4a2f-ae73-172624e235df type_name="CyDesigner.Common.ProjMgmt.Model.CyConfDepList" version="1">
+<name v="cmpl_deps">
+<CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
+<dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
+<CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
+<file name=".\CortexM3\ARM_GCC_541\Debug\croutine.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\croutine.c" />
+<dep name=".\croutine.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\task.h" />
+</file>
+<file name=".\FreeRTOS.h" />
+<file name=".\FreeRTOSConfig.h" />
+<file name=".\croutine.c" />
+<file name=".\croutine.h" />
+<file name=".\deprecated_definitions.h" />
+<file name=".\device.h" />
+<file name=".\list.h" />
+<file name=".\mpu_wrappers.h" />
+<file name=".\portable.h" />
+<file name=".\portmacro.h" />
+<file name=".\projdefs.h" />
+<file name=".\task.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\event_groups.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\event_groups.c" />
+<dep name=".\event_groups.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\task.h" />
+<dep name=".\timers.h" />
+</file>
+<file name=".\event_groups.c" />
+<file name=".\event_groups.h" />
+<file name=".\timers.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\heap_4.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\heap_4.c" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\task.h" />
+</file>
+<file name=".\heap_4.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\list.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.c" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+</file>
+<file name=".\list.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\port.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\port.c" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\task.h" />
+</file>
+<file name=".\port.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\queue.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\croutine.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\queue.c" />
+<dep name=".\queue.h" />
+<dep name=".\task.h" />
+</file>
+<file name=".\queue.c" />
+<file name=".\queue.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\stream_buffer.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\stream_buffer.c" />
+<dep name=".\stream_buffer.h" />
+<dep name=".\task.h" />
+</file>
+<file name=".\stream_buffer.c" />
+<file name=".\stream_buffer.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\tasks.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\stack_macros.h" />
+<dep name=".\task.h" />
+<dep name=".\tasks.c" />
+<dep name=".\timers.h" />
+</file>
+<file name=".\stack_macros.h" />
+<file name=".\tasks.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\timers.o">
+<dep name=".\FreeRTOS.h" />
+<dep name=".\FreeRTOSConfig.h" />
+<dep name=".\deprecated_definitions.h" />
+<dep name=".\device.h" />
+<dep name=".\list.h" />
+<dep name=".\mpu_wrappers.h" />
+<dep name=".\portable.h" />
+<dep name=".\portmacro.h" />
+<dep name=".\projdefs.h" />
+<dep name=".\queue.h" />
+<dep name=".\task.h" />
+<dep name=".\timers.c" />
+<dep name=".\timers.h" />
+</file>
+<file name=".\timers.c" />
+</CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021>
+</dependency_info>
+</CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256>
+</name>
+<name v="lbry_deps">
+<CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
+<dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
+<CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
+<file name=".\CortexM3\ARM_GCC_541\Debug\FreeRTOS.a">
+<dep name=".\CortexM3\ARM_GCC_541\Debug\croutine.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\event_groups.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\heap_4.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\list.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\port.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\queue.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\stream_buffer.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\tasks.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\timers.o" />
+</file>
+</CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021>
+</dependency_info>
+</CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256>
+</name>
+</CyGuid_47ec7058-2f43-4a2f-ae73-172624e235df>
+</dataGuid>
+<dataGuid v="b0374e30-ce3a-47f2-ad85-821643292c68">
+<CyGuid_b0374e30-ce3a-47f2-ad85-821643292c68 type_name="CyDesigner.Common.ProjMgmt.Common.CyCmdLineData" version="2">
+<genericCmdLineData>
+<name v="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3">
+<name_val_pair name="croutine.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="event_groups.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="heap_4.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="list.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="port.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="queue.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="stream_buffer.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="tasks.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="timers.c" v="-mcpu=cortex-m3 -mthumb -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\FreeRTOS.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\FreeRTOS.a D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\croutine.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\event_groups.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\heap_4.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\list.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\port.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\queue.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\stream_buffer.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\tasks.o D:\teru\project\BlackBeans\FreeRTOS.cylib\CortexM3\ARM_GCC_541\Debug\timers.o" />
+</name>
+</genericCmdLineData>
+<codeGenCmdLineTag v="" />
+</CyGuid_b0374e30-ce3a-47f2-ad85-821643292c68>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<properties />
+</CyGuid_7a7929f8-5e3b-4f86-a093-2d4ee6513111>
+</CyXmlSerializer>

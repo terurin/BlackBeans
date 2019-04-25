@@ -108,5 +108,5 @@ char file_getc(file_t* file) {
 void file_flush(file_t* file){
     assert(file);
     file->buffer_begin=file->buffer_end=0;
-    return ifile->flush(file->object);
+    return file->flush(file->object);
 }

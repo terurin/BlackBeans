@@ -4,6 +4,7 @@
 #include <task.h>
 #include <Tasks/wheel.h>
 #include <Tasks/monitor.h>
+#include "task_uart.h"
 void rtos_init( void ){
 /* Port layer functions that need to be copied into the vector table. */
 extern void xPortPendSVHandler( void );
@@ -22,11 +23,32 @@ uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__ ( (section( ".my_heap" ) )
 static wheel_t wheel;
 
 void rtos_lanch(){
-    task_wheel_init(&wheel,100,1e-3);
-    task_wheel_lanch(&wheel,"wheel",64,4);
+    //task_wheel_init(&wheel,100,1e-3);
+    //task_wheel_lanch(&wheel,"wheel",64,4);
         
-    task_monitor_init();
-    task_monitor_lanch("monitor",64,4);
-   
+    //task_monitor_init();
+    //task_monitor_lanch("monitor",64,4);
+    task_uart_init();
+    task_uart_lanch("uart",64,1);
     vTaskStartScheduler(); 
 }
+/*
+void vApplicationIdleHook(void ){
+    static char line[32]={0};
+    static size_t index=0;
+    UART_Start();
+    while (UART_GetRxBufferSize()>0){
+        const char c=UART_GetChar();
+        if (c=='\r'){
+            line[index]='\0';
+            UART_PutString(line);
+            index=0;
+        }else if (index<sizeof(line)/sizeof(line[0])-1){
+            line[index++]=c;
+        }else {
+            UART_PutString("overflow\r");
+            index=0;
+        }
+           
+    }
+}*/
