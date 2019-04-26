@@ -1,3 +1,23 @@
+D:/teru/project/BlackBeans/Robotics.cylib/CortexM3/ARM_GCC_541/Debug/clip.o : D:/teru/project/BlackBeans/Robotics.cylib/clip.c D:/teru/project/BlackBeans/Robotics.cylib/clip.h D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h 
+
+D:/teru/project/BlackBeans/Robotics.cylib/clip.c : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/clip.h : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/CortexM3/ARM_GCC_541/Debug/control.o : D:/teru/project/BlackBeans/Robotics.cylib/clip.h D:/teru/project/BlackBeans/Robotics.cylib/control.c D:/teru/project/BlackBeans/Robotics.cylib/control.h D:/teru/project/BlackBeans/Robotics.cylib/dspmath.h D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h 
+
+D:/teru/project/BlackBeans/Robotics.cylib/control.c : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/control.h : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/dspmath.h : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/CortexM3/ARM_GCC_541/Debug/dspmath.o : D:/teru/project/BlackBeans/Robotics.cylib/clip.h D:/teru/project/BlackBeans/Robotics.cylib/dspmath.c D:/teru/project/BlackBeans/Robotics.cylib/dspmath.h D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h 
+
+D:/teru/project/BlackBeans/Robotics.cylib/dspmath.c : 
+
 D:/teru/project/BlackBeans/Robotics.cylib/CortexM3/ARM_GCC_541/Debug/mattrix.o : D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOS.h D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOSConfig.h D:/teru/project/BlackBeans/FreeRTOS.cylib/deprecated_definitions.h D:/teru/project/BlackBeans/FreeRTOS.cylib/device.h D:/teru/project/BlackBeans/FreeRTOS.cylib/mpu_wrappers.h D:/teru/project/BlackBeans/FreeRTOS.cylib/portable.h D:/teru/project/BlackBeans/FreeRTOS.cylib/portmacro.h D:/teru/project/BlackBeans/FreeRTOS.cylib/projdefs.h D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h D:/teru/project/BlackBeans/Robotics.cylib/mattrix.c D:/teru/project/BlackBeans/Robotics.cylib/mattrix.h 
 
 D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOS.h : 
@@ -16,9 +36,13 @@ D:/teru/project/BlackBeans/FreeRTOS.cylib/portmacro.h :
 
 D:/teru/project/BlackBeans/FreeRTOS.cylib/projdefs.h : 
 
-D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h : 
-
 D:/teru/project/BlackBeans/Robotics.cylib/mattrix.c : 
 
 D:/teru/project/BlackBeans/Robotics.cylib/mattrix.h : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/CortexM3/ARM_GCC_541/Debug/pidc.o : D:/teru/project/BlackBeans/Robotics.cylib/dspmath.h D:/teru/project/BlackBeans/Robotics.cylib/dsptype.h D:/teru/project/BlackBeans/Robotics.cylib/pidc.c D:/teru/project/BlackBeans/Robotics.cylib/pidc.h 
+
+D:/teru/project/BlackBeans/Robotics.cylib/pidc.c : 
+
+D:/teru/project/BlackBeans/Robotics.cylib/pidc.h : 
 
