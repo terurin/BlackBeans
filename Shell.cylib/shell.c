@@ -39,7 +39,7 @@ bool shell_join(shell_t* shell,const char* name,shell_command_t command){
     const size_t start=shell_hash(shell,name);
     shell_item_t* const items=shell->items;
     size_t index;
-    for (index=start;!items[index].command;index=loop_next(index,size)){
+    for (index=start;(items[index].command)!=NULL;index=loop_next(index,size)){
         if (index==start-1)return false;//空きがない
     }
     //挿入
@@ -74,6 +74,8 @@ char* shell_parse(shell_t* shell,char* buffer,size_t buffer_size,char* line){
     if (!argc)return "\r";
     shell_command_t command=shell_find(shell,argv[0]);
     if (!command)return "Error:Not Found\r";
+    
+    buffer[0]=0;
     return command(buffer,buffer_size,argv,argc);
 }
 
