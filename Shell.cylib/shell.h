@@ -22,5 +22,7 @@
     shell_command_t shell_find(shell_t* shell,const char*);
     char* shell_parse(shell_t*,char* buffer,size_t buffer_size,char* line);
     
+    typedef void (*shell_puts_t)(const char*);
+    void shell_dump(const shell_t*,shell_puts_t);
 #endif
     

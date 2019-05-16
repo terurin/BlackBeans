@@ -3,8 +3,9 @@
 #include <assert.h>
 #include "text.h"
 #include<FreeRTOS.h>
+#include <stdio.h>
 
-static inline size_t shell_hash(shell_t* shell,const char* str){
+static inline size_t shell_hash(const shell_t* shell,const char* str){
     const size_t rem =shell->size;
     size_t hash=0;
     for (const char* it=str;*it!=0;it++){
@@ -79,3 +80,19 @@ char* shell_parse(shell_t* shell,char* buffer,size_t buffer_size,char* line){
     return command(buffer,buffer_size,argv,argc);
 }
 
+void shell_dump(const shell_t* shell,shell_puts_t writer){
+    assert(shell);
+    assert(writer);
+    #define BUFFER_SIZE (64)
+    static char buffer[BUFFER_SIZE];
+    snprintf(buffer,BUFFER_SIZE,"shell [%d/%d]\n",shell->used,shell->size);
+    writer(buffer);
+    //要素吐き出し
+    const shell_item_t* const items=shell->items;
+    const size_t size= shell->size; 
+    for (size_t i=0;i<size;i++){
+        const char *name=items[i].name;
+        snprintf(buffer,BUFFER_SIZE,"%d:%d->%s\n",i,shell_hash(&shell,name),name);
+        writer(buffer);
+    }
+}
