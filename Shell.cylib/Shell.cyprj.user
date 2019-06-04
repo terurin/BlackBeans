@@ -62,9 +62,9 @@
 <CyGuid_b0374e30-ce3a-47f2-ad85-821643292c68 type_name="CyDesigner.Common.ProjMgmt.Common.CyCmdLineData" version="2">
 <genericCmdLineData>
 <name v="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3">
-<name_val_pair name="shell.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="shell.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -std=c99" />
 <name_val_pair name="D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\Shell.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Shell.a D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\shell.o D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\text.o" />
-<name_val_pair name="text.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="text.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -std=c99" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="" />

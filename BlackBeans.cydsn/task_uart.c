@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+
 const static char newline='\n';
 
 void task_uart_init(){
@@ -42,6 +43,7 @@ static void task_uart_process(void* object){
     shell_t shell;
     shell_init(&shell,32);
     shell_join(&shell,"test",test);
+    //shell_join(&shell,"dump",dump);
     shell_dump(&shell,UART_PutString);
     
     int index=0;
@@ -50,6 +52,8 @@ static void task_uart_process(void* object){
             const char c = UART_ReadRxData();
             if (c==newline){
                 line[index]=0;
+                if (!strcmp(line,"dump")){shell_dump(&shell,UART_PutString);}
+                
                 const char*const response=shell_parse(&shell,buffer,buffer_size,line);
                 UART_PutString(response);
                 //UART_PutString(line);
