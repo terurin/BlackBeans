@@ -85,7 +85,7 @@ uint32_t task_monitor_read(task_monitor_channel_t channel){
 
 q1516_t task_monitor_read_vbat_v(){
     const static float hi_ohm=10e3,low_ohm=1e3;//分圧抵抗
-    const static q3132_t gain =(vref_v*(hi_ohm+low_ohm)/(low_ohm))*(1<<(16-bits));
+    const q3132_t gain =(vref_v*(hi_ohm+low_ohm)/(low_ohm))*(1<<(16-bits));
     const uint32_t result = task_monitor_read(TASK_MONITOR_CHANNEL_VBAT);
     return gain*result;
 }
@@ -93,7 +93,7 @@ q1516_t task_monitor_read_vbat_v(){
 q1516_t task_monitor_mxc_a(task_monitor_channel_t ch){
     assert(ch!=TASK_MONITOR_CHANNEL_VBAT);
     const static float a_per_v=50;
-    const static q3132_t gain =a_per_v*vref_v*(1<<(16-bits));
+    const q3132_t gain =a_per_v*vref_v*(1<<(16-bits));
     const uint32_t result = task_monitor_read(ch);
     return gain*result;
 }

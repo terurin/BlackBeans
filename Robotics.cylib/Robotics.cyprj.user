@@ -113,6 +113,7 @@
 <name_val_pair name="pidc.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="file_base.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\Robotics.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Robotics.a D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\clip.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\control.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\dspmath.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\mattrix.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\pidc.o" />
+<name_val_pair name="D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\Robotics.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Robotics.a D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\clip.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\control.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\dspmath.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\mattrix.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\pidc.o" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="" />

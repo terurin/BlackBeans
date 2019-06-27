@@ -25,7 +25,7 @@
 static void test();
 static void hardward_init();
 
-static file_t uart;
+
 int main(void){
     
     rtos_init();

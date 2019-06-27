@@ -12,49 +12,61 @@
 // ========================================
 `include "cypress.v"
 //`#end` -- edit above this line, do not edit this line
-// Generated on 03/31/2019 at 04:51
+// Generated on 06/26/2019 at 20:41
 // Component: HallSensorHead
 module HallSensorHead (
-	output  down,
-	output  up,
+	output reg down,
+	output reg up,
 	input   clock,
-	input  [2:0] halls
+	input  [2:0] halls,
+	input   reset
 );
 
 //`#start body` -- edit after this line, do not edit this line
 reg [2:0] now,last;
 always @(posedge clock)begin
-    now<=halls;
-    last<=now;
+    if (reset)begin
+        now<=0;
+        last<=0;
+    end else begin
+        now<=halls;
+        last<=now;
+    end
 end
 
 //compute difference
-reg [1:0] up_down;
-assign up=up_down[1];
-assign down=up_down[0];
+reg [1:0]up_down;
 always @(posedge clock)begin
-    case ({last,now})
-    //001
-    6'b001_101:up_down<=2'b01;
-    6'b001_011:up_down<=2'b10;
-    //011
-    6'b011_001:up_down<=2'b01;
-    6'b011_010:up_down<=2'b10;
-    //010
-    6'b010_011:up_down<=2'b01;
-    6'b010_110:up_down<=2'b10;
-    //110
-    6'b110_010:up_down<=2'b01;
-    6'b110_100:up_down<=2'b10;
-    //100
-    6'b100_110:up_down<=2'b01;
-    6'b100_101:up_down<=2'b10;
-    //101
-    6'b101_100:up_down<=2'b01;
-    6'b101_001:up_down<=2'b10;
-    //no difference or error
-    default:up_down<=2'b00;
-endcase
+    if (reset)begin
+        up<=0;
+        down<=0;
+    end else begin   
+        case ({last,now})
+            //001
+            6'b001_101:up_down<=2'b01;
+            6'b001_011:up_down<=2'b10;
+            //011
+            6'b011_001:up_down<=2'b01;
+            6'b011_010:up_down<=2'b10;
+            //010
+            6'b010_011:up_down<=2'b01;
+            6'b010_110:up_down<=2'b10;
+            //110
+            6'b110_010:up_down<=2'b01;
+            6'b110_100:up_down<=2'b10;
+            //100
+            6'b100_110:up_down<=2'b01;
+            6'b100_101:up_down<=2'b10;
+            //101
+            6'b101_100:up_down<=2'b01;
+            6'b101_001:up_down<=2'b10;
+            //no difference or error
+            default:up_down<=2'b00;
+        endcase
+        //update
+        up<=up_down[1];
+        down<=up_down[0];
+    end
 end
 //`#end` -- edit above this line, do not edit this line
 endmodule

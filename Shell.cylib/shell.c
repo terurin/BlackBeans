@@ -5,6 +5,8 @@
 #include<FreeRTOS.h>
 #include <stdio.h>
 
+#define BUFFER_SIZE (64)
+
 static inline size_t shell_hash(const shell_t* shell,const char* str){
     const size_t rem =shell->size;
     size_t hash=0;
@@ -25,13 +27,14 @@ void shell_init(shell_t* shell,size_t size){
     for (size_t i=0;i<size;i++){
         memset(items[i].name,0,SHELL_NAME_LENGTH*sizeof(char));
         items[i].command=NULL;
+        items[i].context=NULL;
     }
     shell->items=items;
     shell->size=size;
     shell->used=0;
 }
 
-bool shell_join(shell_t* shell,const char* name,shell_command_t command){
+bool shell_join(shell_t* shell,const char* name,shell_command_t command,void *context){
     assert(shell);
     assert(name);
     assert(command);
@@ -47,44 +50,64 @@ bool shell_join(shell_t* shell,const char* name,shell_command_t command){
     shell_item_t* insert=&shell->items[index];
     strncpy(insert->name,name,SHELL_NAME_LENGTH-1);
     insert->command=command;
+    insert->context=context;
     return true;
 }
 
-shell_command_t shell_find(shell_t* shell,const char* name){
+bool shell_join_simple(shell_t* shell,const char* name,shell_command_simple_t command){
+    return shell_join(shell,name,(shell_command_t)command,NULL);
+}
+
+shell_item_t* shell_find(shell_t* shell,const char* name){
     assert(shell);
     const size_t size=shell->size;
     const size_t start=shell_hash(shell,name);
-    const shell_item_t* const items=shell->items;
+    shell_item_t* const items=shell->items;
     size_t index;
     
     for (index=start;index!=start-1;index=loop_next(index,size)){
         if (!(items[index].command))return NULL;
         if (!strncmp(items[index].name,name,SHELL_NAME_LENGTH)){
-            return items[index].command;
+            return &items[index];
         }
     }
     return NULL;
 }
 
-char* shell_parse(shell_t* shell,char* buffer,size_t buffer_size,char* line){
+void shell_parse(shell_t* shell,shell_puts_t writer,char* line){
     assert(shell);
+    assert(writer);
     const static int arg_max=16;
     const static char split_tokens[]=" ";
     const char *argv[arg_max];
     size_t argc=text_split(argv,arg_max,line,split_tokens);
-    if (!argc)return "\r";
-    shell_command_t command=shell_find(shell,argv[0]);
-    if (!command)return "Error:Not Found\r";
-    
-    buffer[0]=0;
-    return command(buffer,buffer_size,argv,argc);
+    if (!argc){
+        writer("\n");
+        return;
+    }
+    shell_item_t* item=shell_find(shell,argv[0]);
+    if (!item){
+        writer("Error:Not Found\n");
+        return ;
+    }
+    item->command(writer,argc,argv,item->context);
 }
 
-void shell_dump(const shell_t* shell,shell_puts_t writer){
+void shell_join_basic(shell_t* shell){
+    assert(shell);
+    shell_join(shell,"dump",(shell_command_t)command_dump,shell);
+    shell_join_simple(shell,"echo",command_echo);
+    shell_join_simple(shell,"rtos",command_rtos);
+    
+    
+}
+
+void command_dump(shell_puts_t writer,int argc,const char** argv,shell_t* shell){
+    (void)argc;
+    (void)argv;
     assert(shell);
     assert(writer);
-    #define BUFFER_SIZE (64)
-    static char buffer[BUFFER_SIZE];
+    char* buffer = (char*)pvPortMalloc(sizeof(char)*BUFFER_SIZE);
     snprintf(buffer,BUFFER_SIZE,"shell [%d/%d]\n",shell->used,shell->size);
     writer(buffer);
     //要素吐き出し
@@ -92,7 +115,34 @@ void shell_dump(const shell_t* shell,shell_puts_t writer){
     const size_t size= shell->size; 
     for (size_t i=0;i<size;i++){
         const char *name=items[i].name;
-        snprintf(buffer,BUFFER_SIZE,"%d:%d->%s\n",i,shell_hash(&shell,name),name);
+        snprintf(buffer,BUFFER_SIZE,"%d:%d->%s\n",i,shell_hash(shell,name),name);
         writer(buffer);
     }
+    vPortFree(buffer);
+}
+
+void command_echo(shell_puts_t writer,int argc,const char** argv){
+    assert(writer);
+    if (argc<2)return;
+    char* buffer = (char*)pvPortMalloc(sizeof(char)*BUFFER_SIZE);
+    for (int i=1;i<argc-1;++i){ 
+        sniprintf(buffer,BUFFER_SIZE,"%s ",argv[i]);
+        writer(buffer);
+    }
+    sniprintf(buffer,BUFFER_SIZE,"%s\n",argv[argc-1]);
+    writer(buffer);    
+    vPortFree(buffer);
+}
+
+void command_rtos(shell_puts_t writer,int argc,const char** argv){
+    //
+    char* buffer = (char*)pvPortMalloc(sizeof(char)*BUFFER_SIZE);
+    size_t heap_total=configTOTAL_HEAP_SIZE;
+    size_t heap_size=xPortGetFreeHeapSize();
+    size_t heap_linear=xPortGetMinimumEverFreeHeapSize();
+    sniprintf(buffer,BUFFER_SIZE,
+        "total:%d,used:%d,linear:%d\n",
+        heap_total,heap_total-heap_size,heap_linear);
+    writer(buffer);
+    vPortFree(buffer);
 }

@@ -1,24 +1,28 @@
-D:/teru/project/BlackBeans/Shell.cylib/CortexM3/ARM_GCC_541/Debug/shell.o : D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOS.h D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOSConfig.h D:/teru/project/BlackBeans/FreeRTOS.cylib/deprecated_definitions.h D:/teru/project/BlackBeans/FreeRTOS.cylib/device.h D:/teru/project/BlackBeans/FreeRTOS.cylib/mpu_wrappers.h D:/teru/project/BlackBeans/FreeRTOS.cylib/portable.h D:/teru/project/BlackBeans/FreeRTOS.cylib/portmacro.h D:/teru/project/BlackBeans/FreeRTOS.cylib/projdefs.h D:/teru/project/BlackBeans/Shell.cylib/shell.c D:/teru/project/BlackBeans/Shell.cylib/shell.h D:/teru/project/BlackBeans/Shell.cylib/text.h 
+D:/teru/project/blackbeans/Shell.cylib/CortexM3/ARM_GCC_541/Debug/shell.o : D:/teru/project/blackbeans/FreeRTOS.cylib/FreeRTOS.h D:/teru/project/blackbeans/FreeRTOS.cylib/FreeRTOSConfig.h D:/teru/project/blackbeans/FreeRTOS.cylib/deprecated_definitions.h D:/teru/project/blackbeans/FreeRTOS.cylib/device.h D:/teru/project/blackbeans/FreeRTOS.cylib/mpu_wrappers.h D:/teru/project/blackbeans/FreeRTOS.cylib/portable.h D:/teru/project/blackbeans/FreeRTOS.cylib/portmacro.h D:/teru/project/blackbeans/FreeRTOS.cylib/projdefs.h D:/teru/project/blackbeans/Shell.cylib/shell.c D:/teru/project/blackbeans/Shell.cylib/shell.h D:/teru/project/blackbeans/Shell.cylib/text.h 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOS.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/FreeRTOS.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/FreeRTOSConfig.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/FreeRTOSConfig.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/deprecated_definitions.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/deprecated_definitions.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/device.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/device.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/mpu_wrappers.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/mpu_wrappers.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/portable.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/portable.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/portmacro.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/portmacro.h : 
 
-D:/teru/project/BlackBeans/FreeRTOS.cylib/projdefs.h : 
+D:/teru/project/blackbeans/FreeRTOS.cylib/projdefs.h : 
 
-D:/teru/project/BlackBeans/Shell.cylib/shell.c : 
+D:/teru/project/blackbeans/Shell.cylib/shell.c : 
 
-D:/teru/project/BlackBeans/Shell.cylib/shell.h : 
+D:/teru/project/blackbeans/Shell.cylib/shell.h : 
 
-D:/teru/project/BlackBeans/Shell.cylib/text.h : 
+D:/teru/project/blackbeans/Shell.cylib/text.h : 
+
+D:/teru/project/blackbeans/Shell.cylib/CortexM3/ARM_GCC_541/Debug/text.o : D:/teru/project/blackbeans/Shell.cylib/text.c D:/teru/project/blackbeans/Shell.cylib/text.h 
+
+D:/teru/project/blackbeans/Shell.cylib/text.c : 
 

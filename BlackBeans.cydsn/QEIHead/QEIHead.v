@@ -12,12 +12,13 @@
 // ========================================
 `include "cypress.v"
 //`#end` -- edit above this line, do not edit this line
-// Generated on 03/31/2019 at 03:38
+// Generated on 06/26/2019 at 20:30
 // Component: QEIHead
 module QEIHead (
 	output  down,
 	output  up,
 	input   clock,
+	input   reset,
 	input   x,
 	input   y
 );

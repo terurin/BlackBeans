@@ -4,7 +4,7 @@
 #include <task.h>
 #include <Tasks/wheel.h>
 #include <Tasks/monitor.h>
-#include "task_uart.h"
+#include "task_comm.h"
 void rtos_init( void ){
 /* Port layer functions that need to be copied into the vector table. */
 extern void xPortPendSVHandler( void );
@@ -28,8 +28,8 @@ void rtos_lanch(){
         
     //task_monitor_init();
     //task_monitor_lanch("monitor",64,4);
-    task_uart_init();
-    task_uart_lanch("uart",64,1);
+    task_comm_init();
+    task_comm_lanch(64,1);
     vTaskStartScheduler(); 
 }
 /*

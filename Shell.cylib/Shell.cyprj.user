@@ -65,6 +65,7 @@
 <name_val_pair name="shell.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -std=c99" />
 <name_val_pair name="D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\Shell.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Shell.a D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\shell.o D:\teru\project\BlackBeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\text.o" />
 <name_val_pair name="text.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -std=c99" />
+<name_val_pair name="D:\teru\project\blackbeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\Shell.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Shell.a D:\teru\project\blackbeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\shell.o D:\teru\project\blackbeans\Shell.cylib\CortexM3\ARM_GCC_541\Debug\text.o" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="" />
