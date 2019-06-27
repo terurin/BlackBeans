@@ -11,6 +11,31 @@
 <CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
 <dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
+<file name=".\CortexM3\ARM_GCC_541\Debug\clip.o">
+<dep name=".\clip.c" />
+<dep name=".\clip.h" />
+<dep name=".\dsptype.h" />
+</file>
+<file name=".\clip.c" />
+<file name=".\clip.h" />
+<file name=".\dsptype.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\control.o">
+<dep name=".\clip.h" />
+<dep name=".\control.c" />
+<dep name=".\control.h" />
+<dep name=".\dspmath.h" />
+<dep name=".\dsptype.h" />
+</file>
+<file name=".\control.c" />
+<file name=".\control.h" />
+<file name=".\dspmath.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\dspmath.o">
+<dep name=".\clip.h" />
+<dep name=".\dspmath.c" />
+<dep name=".\dspmath.h" />
+<dep name=".\dsptype.h" />
+</file>
+<file name=".\dspmath.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\mattrix.o">
 <dep name="..\FreeRTOS.cylib\FreeRTOS.h" />
 <dep name="..\FreeRTOS.cylib\FreeRTOSConfig.h" />
@@ -32,33 +57,16 @@
 <file name="..\FreeRTOS.cylib\portable.h" />
 <file name="..\FreeRTOS.cylib\portmacro.h" />
 <file name="..\FreeRTOS.cylib\projdefs.h" />
-<file name=".\dsptype.h" />
 <file name=".\mattrix.c" />
 <file name=".\mattrix.h" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\clip.o">
-<dep name=".\clip.c" />
-<dep name=".\clip.h" />
-<dep name=".\dsptype.h" />
-</file>
-<file name=".\clip.c" />
-<file name=".\clip.h" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\control.o">
-<dep name=".\clip.h" />
-<dep name=".\control.c" />
-<dep name=".\control.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\pidc.o">
 <dep name=".\dspmath.h" />
 <dep name=".\dsptype.h" />
+<dep name=".\pidc.c" />
+<dep name=".\pidc.h" />
 </file>
-<file name=".\control.c" />
-<file name=".\control.h" />
-<file name=".\dspmath.h" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\dspmath.o">
-<dep name=".\clip.h" />
-<dep name=".\dspmath.c" />
-<dep name=".\dspmath.h" />
-<dep name=".\dsptype.h" />
-</file>
-<file name=".\dspmath.c" />
+<file name=".\pidc.c" />
+<file name=".\pidc.h" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\file_base.o">
 <dep name="..\FreeRTOS.cylib\FreeRTOS.h" />
 <dep name="..\FreeRTOS.cylib\FreeRTOSConfig.h" />
@@ -73,14 +81,6 @@
 </file>
 <file name=".\file_base.c" />
 <file name=".\file_base.h" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\pidc.o">
-<dep name=".\dspmath.h" />
-<dep name=".\dsptype.h" />
-<dep name=".\pidc.c" />
-<dep name=".\pidc.h" />
-</file>
-<file name=".\pidc.c" />
-<file name=".\pidc.h" />
 </CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021>
 </dependency_info>
 </CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256>
@@ -106,11 +106,11 @@
 <CyGuid_b0374e30-ce3a-47f2-ad85-821643292c68 type_name="CyDesigner.Common.ProjMgmt.Common.CyCmdLineData" version="2">
 <genericCmdLineData>
 <name v="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3">
-<name_val_pair name="clip.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="control.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="dspmath.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="mattrix.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="pidc.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="clip.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="control.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="dspmath.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="mattrix.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="pidc.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="file_base.c" v="-mcpu=cortex-m3 -mthumb -I..\FreeRTOS.cylib -I. -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\Robotics.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Robotics.a D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\clip.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\control.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\dspmath.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\mattrix.o D:\teru\project\BlackBeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\pidc.o" />
 <name_val_pair name="D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\Robotics.a" v="-rs .\CortexM3\ARM_GCC_541\Debug\Robotics.a D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\clip.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\control.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\dspmath.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\mattrix.o D:\teru\project\blackbeans\Robotics.cylib\CortexM3\ARM_GCC_541\Debug\pidc.o" />

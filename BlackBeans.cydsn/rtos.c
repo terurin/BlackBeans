@@ -18,7 +18,7 @@ extern cyisraddress CyRamVectors[];
 	CyRamVectors[ 15 ] = ( cyisraddress ) xPortSysTickHandler;
 }
 //heap
-uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__ ( (section( ".my_heap" ) ) );
+//uint8_t ucHeap[ configTOTAL_HEAP_SIZE ] __attribute__ ( (section( ".my_heap" ) ) );
 //task
 static wheel_t wheel;
 
@@ -28,8 +28,8 @@ void rtos_lanch(){
         
     //task_monitor_init();
     //task_monitor_lanch("monitor",64,4);
-    task_comm_init();
-    task_comm_lanch(64,1);
+    //task_comm_init();
+    //task_comm_lanch(64,1);
     vTaskStartScheduler(); 
 }
 /*

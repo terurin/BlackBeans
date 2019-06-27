@@ -20,29 +20,34 @@
 #include "Driver/timer.h"
 #include "rtos.h"
 #include "mattrix.h"
-#include "Driver/file_uart.h"
+#include "bldc.h"
 #include <string.h>
 static void test();
 static void hardward_init();
 
 
 int main(void){
-    
-    rtos_init();
+
     hardward_init();
     test();
-    //while(1);
-    rtos_lanch();
+    while(1);
+    
+    //rtos_init();
+    //rtos_lanch();
 }
 
 static void hardward_init(){
     CyGlobalIntEnable;     
-    logtimer_init();
-    profiling_timer_init();
-    //file_uart_init(&uart,32);
+    //logtimer_init();
+    //profiling_timer_init();
+    bldc_init();
+
 }
 
 void test(){
+    bldc_write_raw(0,2000);
+    bldc_write_raw(1,2000);
+    bldc_write_raw(2,2000);
     //file_puts(&uart,"hello world\r");
     //file_flush(&uart);
     

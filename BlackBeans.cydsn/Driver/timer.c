@@ -6,6 +6,7 @@
 static uint64_t logtimer_tick_ms;
 static void logtimer_interrupt(){    
     logtimer_tick_ms++;
+    
 }
 
 void logtimer_init(){
