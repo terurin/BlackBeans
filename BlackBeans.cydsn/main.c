@@ -13,27 +13,20 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include "dspmath.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "Tasks/wheel.h"
-#include "Driver/timer.h"
 #include "rtos.h"
-#include "mattrix.h"
 #include "bldc.h"
 #include <string.h>
 static void test();
 static void hardward_init();
 
-
 int main(void){
-
+    rtos_init();
     hardward_init();
     test();
-    while(1);
-    
-    //rtos_init();
-    //rtos_lanch();
+    //while(1);
+    rtos_lanch();
 }
 
 static void hardward_init(){

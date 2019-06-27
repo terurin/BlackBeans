@@ -45,19 +45,14 @@ static void *event_context[3];
 static control_func event_controls[3];
 
 static inline void pwm_init(){
-    //全て停止させる
-    BLDC1_PWM_Stop();
-    BLDC2_PWM_Stop();
-    BLDC3_PWM_Stop();
+    //
+    BLDC1_PWM_Start();
+    BLDC2_PWM_Start();
+    BLDC3_PWM_Start();
     //周期設定
     BLDC1_PWM_WritePeriod(pwm_period);
     BLDC2_PWM_WritePeriod(pwm_period);
     BLDC3_PWM_WritePeriod(pwm_period);
-    //位相設定(位相をn分割することで電力効率及び制御周期を緩和する．)
-    const uint16_t delta= pwm_period/motor_count;
-    BLDC1_PWM_WriteCounter(0);
-    BLDC1_PWM_WriteCounter(delta);
-    BLDC1_PWM_WriteCounter(delta*2);
     //波形設定(duty=0)
     BLDC1_PWM_WriteCompare(0);
     BLDC2_PWM_WriteCompare(0);
@@ -69,10 +64,7 @@ static inline void pwm_init(){
     BLDC1_PWMEvent_SetPriority(pwm_priority);//startExの後
     BLDC2_PWMEvent_SetPriority(pwm_priority);
     BLDC3_PWMEvent_SetPriority(pwm_priority);
-    //再開*/
-    BLDC1_PWM_Start();
-    BLDC2_PWM_Start();
-    BLDC3_PWM_Start();
+
 }
 
 static inline void counter_init(){
@@ -103,15 +95,15 @@ static inline int16_t abs16(int16_t x){
 
 void bldc_write_raw(int id,int16_t value){
     switch (id){
-    case 0:
-        BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
-        BLDC1_PWM_WriteCompare(abs16(value));
-        return;
     case 1:
         BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
         BLDC1_PWM_WriteCompare(abs16(value));
         return;
     case 2:
+        BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
+        BLDC1_PWM_WriteCompare(abs16(value));
+        return;
+    case 3:
         BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
         BLDC1_PWM_WriteCompare(abs16(value));
         return ;
@@ -126,6 +118,7 @@ static void bldc_event_1(){
     if (func){
         func(event_context[id]);
     }
+    
 }
 static void bldc_event_2(){
     static const int id=1;
@@ -133,6 +126,7 @@ static void bldc_event_2(){
     if (func){
         func(event_context[id]);
     }
+
 }
 static void bldc_event_3(){
     static const int id=2;
@@ -140,4 +134,5 @@ static void bldc_event_3(){
     if (func){
         func(event_context[id]);
     }
+
 }

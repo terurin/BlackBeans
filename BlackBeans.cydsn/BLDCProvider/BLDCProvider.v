@@ -15,8 +15,8 @@
 // Generated on 06/21/2019 at 16:05
 // Component: BLDCProvider
 module BLDCProvider (
-	output [2:0] PWMS,
-	output [2:0] RESETS_N,
+	output reg[2:0] PWMS,
+	output reg[2:0] RESETS_N,
 	input   Clock,
 	input   Direction,
 	input  [2:0] Halls,
@@ -28,10 +28,13 @@ module BLDCProvider (
 
 //`#start footer` -- edit after this line, do not edit this line
 
+
+reg pulse_last;
 reg [5:0] resets_mask;
 always @(posedge Clock or posedge Kill)begin
     if (Kill)begin 
         resets_mask<=6'b111_000;
+        pulse_last<=0;
     end else if (!Pulse)begin
         case ({Direction,Halls})
             //front
@@ -51,15 +54,17 @@ always @(posedge Clock or posedge Kill)begin
             //error
             default:resets_mask<=6'b111_000;
         endcase
+        pulse_last<=Pulse;
     end else begin
         resets_mask<=resets_mask;//hold
+        pulse_last<=pulse_last;
     end
 end
 
-//output
-assign RESETS_N=~resets_mask[5:3];
-assign PWMS=resets_mask[2:0]&(Pulse?3'b111:3'b000);
-
+always @(posedge Clock)begin
+    RESETS_N<=~resets_mask[5:3];
+    PWMS<=resets_mask[2:0]&(pulse_last?3'b111:3'b000);
+end
 //`#end` -- edit above this line, do not edit this line
 endmodule
 //`#start footer` -- edit after this line, do not edit this line
