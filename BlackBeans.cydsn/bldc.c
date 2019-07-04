@@ -28,7 +28,7 @@ static const uint8_t status_mask_encoder=0b11<<3;
 static const uint8_t status_mask_encoder_x=1<<3;
 static const uint8_t status_mask_encoder_y=1<<4;
 static const uint8_t status_mask_error=1<<5;
-static const uint16_t pwm_period=2599;//10kHz@Bus=26MHz
+static const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
 static const uint8_t pwm_priority=1;//1/7 2番目の優先度
 static const unsigned int motor_count=3;
 
@@ -55,9 +55,9 @@ static inline void pwm_init(){
     BLDC3_PWM_WritePeriod(pwm_period);
     //位相設定(位相をn分割することで電力効率及び制御周期を緩和する．)
     const uint16_t delta= pwm_period/motor_count;
-    BLDC1_PWM_WriteCounter(0);
-    BLDC1_PWM_WriteCounter(delta);
-    BLDC1_PWM_WriteCounter(delta*2);
+//    BLDC1_PWM_WriteCounter(0);
+//    BLDC1_PWM_WriteCounter(delta);
+//    BLDC1_PWM_WriteCounter(delta*2);
     //波形設定(duty=0)
     BLDC1_PWM_WriteCompare(0);
     BLDC2_PWM_WriteCompare(0);
@@ -108,12 +108,12 @@ void bldc_write_raw(int id,int16_t value){
         BLDC1_PWM_WriteCompare(abs16(value));
         return;
     case 1:
-        BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
-        BLDC1_PWM_WriteCompare(abs16(value));
+        BLDC2_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
+        BLDC2_PWM_WriteCompare(abs16(value));
         return;
     case 2:
-        BLDC1_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
-        BLDC1_PWM_WriteCompare(abs16(value));
+        BLDC3_Control_Write(value<0?ctrl_mask_dir:ctrl_mask_none);
+        BLDC3_PWM_WriteCompare(abs16(value));
         return ;
     default:
         return;
