@@ -12,19 +12,20 @@
 // ========================================
 `include "cypress.v"
 //`#end` -- edit above this line, do not edit this line
-// Generated on 06/26/2019 at 20:41
+// Generated on 07/04/2019 at 20:10
 // Component: HallSensorHead
 module HallSensorHead (
-	output reg down,
-	output reg up,
+	output  count,
+	output  dir,
 	input   clock,
 	input  [2:0] halls,
 	input   reset
 );
 
 //`#start body` -- edit after this line, do not edit this line
+
 reg [2:0] now,last;
-always @(posedge clock)begin
+always @(clock)begin
     if (reset)begin
         now<=0;
         last<=0;
@@ -34,40 +35,9 @@ always @(posedge clock)begin
     end
 end
 
-//compute difference
-reg [1:0]up_down;
-always @(posedge clock)begin
-    if (reset)begin
-        up<=0;
-        down<=0;
-    end else begin   
-        case ({last,now})
-            //001
-            6'b001_101:up_down<=2'b01;
-            6'b001_011:up_down<=2'b10;
-            //011
-            6'b011_001:up_down<=2'b01;
-            6'b011_010:up_down<=2'b10;
-            //010
-            6'b010_011:up_down<=2'b01;
-            6'b010_110:up_down<=2'b10;
-            //110
-            6'b110_010:up_down<=2'b01;
-            6'b110_100:up_down<=2'b10;
-            //100
-            6'b100_110:up_down<=2'b01;
-            6'b100_101:up_down<=2'b10;
-            //101
-            6'b101_100:up_down<=2'b01;
-            6'b101_001:up_down<=2'b10;
-            //no difference or error
-            default:up_down<=2'b00;
-        endcase
-        //update
-        up<=up_down[1];
-        down<=up_down[0];
-    end
-end
+assign count=^(now^last);
+assign dir=0;
+
 //`#end` -- edit above this line, do not edit this line
 endmodule
 //`#start footer` -- edit after this line, do not edit this line
