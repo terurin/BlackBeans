@@ -126,6 +126,7 @@ static void bldc_event_1(){
     if (func){
         func(event_context[id]);
     }
+    
 }
 static void bldc_event_2(){
     static const int id=1;

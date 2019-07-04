@@ -489,19 +489,19 @@
       <Data key="4be70a20-d26c-4c26-b377-d0bfe3d10f00" value="M2RA_N" />
       <Data key="5bd295e6-52b3-4a23-8c24-be9cdb22fe45" value="M2HA" />
       <Data key="6a4e52ba-5a78-44c1-a202-25034617c5b1" value="M1X" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDCMotor_3_BLDCPort_1_PB" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDCMotor_3_BLDCPort_1_EX" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDCMotor_3_BLDCPort_1_ERROR_N" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDCMotor_3_BLDCPort_1_RA_N" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDCMotor_3_BLDCPort_1_PC" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDCMotor_3_BLDCPort_1_HB" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDCMotor_3_BLDCPort_1_EY" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDCMotor_3_BLDCPort_1_HA" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDCMotor_3_BLDCPort_1_RC_N" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDCMotor_3_BLDCPort_1_C" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDCMotor_3_BLDCPort_1_PA" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDCMotor_3_BLDCPort_1_RB_N" />
-      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDCMotor_3_BLDCPort_1_HC" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDC3_BLDCPort_PB" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDC3_BLDCPort_EX" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDC3_BLDCPort_ERROR_N" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDC3_BLDCPort_RA_N" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDC3_BLDCPort_PC" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDC3_BLDCPort_HB" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDC3_BLDCPort_EY" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDC3_BLDCPort_HA" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDC3_BLDCPort_RC_N" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDC3_BLDCPort_C" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDC3_BLDCPort_PA" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDC3_BLDCPort_RB_N" />
+      <Data key="6ca3b205-7b8f-4bb2-9dbb-458842d3d9a7/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDC3_BLDCPort_HC" />
       <Data key="7fb09e17-0718-4e39-965a-0d93483ca033" value="M1Y" />
       <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="M1ERR_N" />
       <Data key="9c384a6a-7ee1-4d99-9837-dcc08954b55d" value="M3HALL" />
@@ -542,19 +542,19 @@
       <Data key="0429675e-8241-4140-976f-1283463c8786" value="M1RC_N" />
       <Data key="549522a7-7da6-4a0b-8242-d94e84084a3e" value="M2RST" />
       <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="UART_RX" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDCMotor_1_BLDCPort_1_PB" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDCMotor_1_BLDCPort_1_EX" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDCMotor_1_BLDCPort_1_ERROR_N" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDCMotor_1_BLDCPort_1_RA_N" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDCMotor_1_BLDCPort_1_PC" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDCMotor_1_BLDCPort_1_HB" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDCMotor_1_BLDCPort_1_EY" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDCMotor_1_BLDCPort_1_HA" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDCMotor_1_BLDCPort_1_RC_N" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDCMotor_1_BLDCPort_1_C" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDCMotor_1_BLDCPort_1_PA" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDCMotor_1_BLDCPort_1_RB_N" />
-      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDCMotor_1_BLDCPort_1_HC" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDC1_BLDCPort_PB" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDC1_BLDCPort_EX" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDC1_BLDCPort_ERROR_N" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDC1_BLDCPort_RA_N" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDC1_BLDCPort_PC" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDC1_BLDCPort_HB" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDC1_BLDCPort_EY" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDC1_BLDCPort_HA" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDC1_BLDCPort_RC_N" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDC1_BLDCPort_C" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDC1_BLDCPort_PA" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDC1_BLDCPort_RB_N" />
+      <Data key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDC1_BLDCPort_HC" />
       <Data key="77715107-f8d5-47e5-a629-0fb83101ac6b" value="M1CUR" />
       <Data key="a987342b-66e3-45d3-860a-994e96914f4d" value="M1PWMs" />
       <Data key="b0fde5e6-f44d-4921-bbb1-97b3b6b18248" value="M2PB" />
@@ -565,19 +565,19 @@
       <Data key="cc3bcd7e-5dc0-48ea-9bf6-6aa082be1ada" value="Vout_1" />
       <Data key="cc220632-056f-4488-9132-d51a149abff6" value="M2ERR_N" />
       <Data key="d6c370ff-d9d4-475b-b974-2b158588995b" value="M3ERROR" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDCMotor_2_BLDCPort_1_PB" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDCMotor_2_BLDCPort_1_EX" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDCMotor_2_BLDCPort_1_ERROR_N" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDCMotor_2_BLDCPort_1_RA_N" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDCMotor_2_BLDCPort_1_PC" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDCMotor_2_BLDCPort_1_HB" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDCMotor_2_BLDCPort_1_EY" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDCMotor_2_BLDCPort_1_HA" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDCMotor_2_BLDCPort_1_RC_N" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDCMotor_2_BLDCPort_1_C" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDCMotor_2_BLDCPort_1_PA" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDCMotor_2_BLDCPort_1_RB_N" />
-      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDCMotor_2_BLDCPort_1_HC" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655" value="BLDC2_BLDCPort_PB" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/6a4e52ba-5a78-44c1-a202-25034617c5b1" value="BLDC2_BLDCPort_EX" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="BLDC2_BLDCPort_ERROR_N" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/61e4acc5-b9bf-4330-aa5e-fdc4c18d69f9" value="BLDC2_BLDCPort_RA_N" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/83b1d023-74ad-4f1b-a832-671fa58ccae3" value="BLDC2_BLDCPort_PC" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/99efc952-8540-4638-aeaf-96a576cb983c" value="BLDC2_BLDCPort_HB" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/535f3bfc-7051-4c09-a4c1-0c5a73dbfd87" value="BLDC2_BLDCPort_EY" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68" value="BLDC2_BLDCPort_HA" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786" value="BLDC2_BLDCPort_RC_N" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/77715107-f8d5-47e5-a629-0fb83101ac6b" value="BLDC2_BLDCPort_C" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/e851a3b9-efb8-48be-bbb8-b303b216c393" value="BLDC2_BLDCPort_PA" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f2d555fd-c507-44dc-bf4d-3a3b089987a4" value="BLDC2_BLDCPort_RB_N" />
+      <Data key="d9fd3341-fda8-47e3-82b4-88ff1dacca18/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3" value="BLDC2_BLDCPort_HC" />
       <Data key="e2fe6587-3724-4b15-b4bf-d3991e67a866" value="M2CUR" />
       <Data key="e679fdc9-a553-4509-82f6-9cb5ceb11dd4" value="M1RST" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="M1PA" />
@@ -4050,7 +4050,7 @@
     </Group>
     <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
       <Group key="0">
-        <Data key="Port Format" value="12,7" />
+        <Data key="Port Format" value="12,6" />
       </Group>
     </Group>
     <Group key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/1ceae960-475c-4f34-86ba-afa18169e655">
@@ -4271,7 +4271,7 @@
     </Group>
     <Group key="ed092b9b-d398-4703-be89-cebf998501f6">
       <Group key="0">
-        <Data key="Port Format" value="12,6" />
+        <Data key="Port Format" value="12,7" />
       </Group>
     </Group>
     <Group key="f7da473b-4ec7-4715-9fa4-f83eba234da3">
