@@ -53,21 +53,11 @@ static inline void pwm_init(){
     BLDC3_PWM_Start();
 }
 
-static int diff[3];
-static void hall_event_0(){
-    diff[0]++;
-}
-static void hall_event_1(){
-    diff[1]++;
-}
-static void hall_event_2(){
-    diff[2]++;
-}
 
 static inline void hall_init(){
-    BLDC1_HallEvent_StartEx(hall_event_0);
-    BLDC2_HallEvent_StartEx(hall_event_1);
-    BLDC3_HallEvent_StartEx(hall_event_2);
+    BLDC1_Counter_Start();
+    BLDC2_Counter_Start();
+    BLDC3_Counter_Start();
 }
 
 void bldc_init(){
@@ -108,7 +98,16 @@ void bldc_write(int id, q15_t duty){
 }
 
 int bldc_read(int id){
-    return id<3?diff[id]:0;
+    switch(id){
+    case 0:
+        return BLDC1_Counter_ReadCounter();
+    case 1:
+        return BLDC2_Counter_ReadCounter();
+    case 2:
+        return BLDC3_Counter_ReadCounter();
+    default:
+        return 0;
+    }
 }
 
 

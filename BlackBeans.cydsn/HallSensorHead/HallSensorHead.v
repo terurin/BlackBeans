@@ -16,14 +16,15 @@
 // Component: HallSensorHead
 module HallSensorHead (
 	output  count,
-	output  dir,
+	output  reg dir,
 	input   clock,
 	input  [2:0] halls,
 	input   reset
 );
 
 //`#start body` -- edit after this line, do not edit this line
-
+//capture
+assign count = ^halls;
 reg [2:0] now,last;
 always @(clock)begin
     if (reset)begin
@@ -34,10 +35,19 @@ always @(clock)begin
         last<=now;
     end
 end
-
-assign count=^(now^last);
-assign dir=0;
-
+//
+wire last_now ={last,now}; 
+always @(last_now)begin
+    case ({last_now})
+        6'b001_011:dir<=1;
+        6'b011_010:dir<=1;
+        6'b010_110:dir<=1;
+        6'b110_100:dir<=1;
+        6'b100_101:dir<=1;
+        6'b101_001:dir<=1;
+        default:dir<=0;
+    endcase
+end
 //`#end` -- edit above this line, do not edit this line
 endmodule
 //`#start footer` -- edit after this line, do not edit this line
