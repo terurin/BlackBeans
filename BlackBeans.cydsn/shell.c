@@ -2,18 +2,34 @@
 #include "project.h"
 #include "bldc.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 static const char newline='\n';
 #define BUFFER_SIZE (256)
+void (*shell_puts_func)(const char*);
 
 void shell_init(){
     UART_Start();
+    USBUART_Start(0, USBUART_3V_OPERATION);
+}
+
+void shell_puts(const char* str){
+    if (shell_puts_func){
+        shell_puts_func(str);
+    }
 }
 
 static void parse(char*);
 static inline void uart_process();
 static inline void usb_process();
 void shell_process(){
+    //出力切り替え(uart)
+    shell_puts_func=UART_PutString;
     uart_process();
+    //出力切り替え(usb)
+    shell_puts_func=USBUART_PutString;
+    usb_process();
 }
 
 void uart_process(){
@@ -26,12 +42,46 @@ void uart_process(){
             rbuffer[rindex++]=c;
             if (rindex<BUFFER_SIZE)continue;
             rindex=0;
-            UART_PutString("Error:overflow\n");
+            shell_puts("Error:overflow\n");
         }else{
             rbuffer[rindex]='\0';
             rindex=0;
             parse(rbuffer);
         }   
+    }
+}
+
+void usb_process(){
+    static char rbuffer[BUFFER_SIZE];
+    static int rindex=0;  
+    static int state=0;
+    
+    switch(state){
+    case 0:   
+        if (!USBUART_bGetConfiguration()){
+            return;
+        }
+        USBUART_CDC_Init();
+        state=1;
+    case 1:
+        if (!USBUART_CDCIsReady()){
+            return;
+        }
+        
+        while (USBUART_GetCount()>0){
+            const char c = USBUART_GetChar();
+            if (c!=newline&&c!='\0'){
+                rbuffer[rindex++]=c;
+                if (rindex<BUFFER_SIZE)continue;
+                rindex=0;
+                shell_puts("Error:overflow\n");
+            }else{
+                rbuffer[rindex]='\0';
+                rindex=0;
+                parse(rbuffer);
+            }    
+        }
+        break;
     }
 }
 
@@ -42,7 +92,7 @@ static void motor_encoder(int argc,char** argv);
 void parse(char* str){
     static const char split[]=" ";
     char *argv[16],*word,*pos;
-    
+    char buffer[256];
     argv[0]=word=strtok_r(str,split,&pos);
     size_t argc=0;
     for (argc=1;argc<16;argc++){
@@ -59,9 +109,8 @@ void parse(char* str){
     }else if (!strcmp(name,"me")){
         motor_encoder(argc,argv);
     }else{
-        UART_PutString("Error:");
-        UART_PutString(name);
-        UART_PutChar('\n');
+        sniprintf(buffer,sizeof(buffer),"Error:%s\n",name);
+        shell_puts(buffer);
     }
 }
 
@@ -86,10 +135,9 @@ void motor_q15(int argc,char** argv){
 }
 
 void motor_encoder(int argc,char** argv){
-    char buf[32];
-    for (int i=0;i<3;i++){
-        UART_PutString(itoa(bldc_read(i),buf,10));
-        UART_PutChar(' ');
-    }
-    UART_PutChar(newline);
+    char line[256];
+    snprintf(line,sizeof(line),"%d %d %d\n",
+        bldc_read(0),bldc_read(1),bldc_read(2));
+    
+    shell_puts(line);
 }

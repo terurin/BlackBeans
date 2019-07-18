@@ -10,5 +10,8 @@
     int bldc_read(int id);
     typedef q15_t(*control_func)(void*);
     void bldc_control(int id,control_func,void* context);
+
+    
+
 #endif
     

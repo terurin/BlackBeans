@@ -24,9 +24,9 @@ module HallSensorHead (
 
 //`#start body` -- edit after this line, do not edit this line
 //capture
-assign count = ^halls;
-reg [2:0] now,last;
-always @(clock)begin
+reg [2:0] now;
+reg [2:0] last;
+always @(posedge clock)begin
     if (reset)begin
         now<=0;
         last<=0;
@@ -35,19 +35,25 @@ always @(clock)begin
         last<=now;
     end
 end
+
+
 //
 wire last_now ={last,now}; 
 always @(last_now)begin
     case ({last_now})
-        6'b001_011:dir<=1;
-        6'b011_010:dir<=1;
-        6'b010_110:dir<=1;
-        6'b110_100:dir<=1;
-        6'b100_101:dir<=1;
-        6'b101_001:dir<=1;
-        default:dir<=0;
+        6'b001_011:dir<=0;
+        6'b011_010:dir<=0;
+        6'b010_110:dir<=0;
+        6'b110_100:dir<=0;
+        6'b100_101:dir<=0;
+        6'b101_001:dir<=0;
+        default:dir<=1;
     endcase
 end
+
+wire [2:0] diff = now^last;
+assign count= diff[2]|diff[1]|diff[0];
+
 //`#end` -- edit above this line, do not edit this line
 endmodule
 //`#start footer` -- edit after this line, do not edit this line

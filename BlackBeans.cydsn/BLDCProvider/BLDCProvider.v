@@ -34,20 +34,20 @@ always @(posedge Clock or posedge Kill)begin
         resets_mask<=6'b111_000;
     end else if (!Pulse)begin
         case ({Direction,Halls})
-            //front
-            4'b0001:resets_mask<=6'b000_011;//
-            4'b0011:resets_mask<=6'b000_010;//
-            4'b0010:resets_mask<=6'b000_110;//
-            4'b0110:resets_mask<=6'b000_100;//
-            4'b0100:resets_mask<=6'b000_101;//
-            4'b0101:resets_mask<=6'b000_001;//
+            //front TODO 修正
+            4'b0001:resets_mask<=6'b001_010;//B->C
+            4'b0011:resets_mask<=6'b100_010;//B->A
+            4'b0010:resets_mask<=6'b010_100;//C->A
+            4'b0110:resets_mask<=6'b001_100;//C->B
+            4'b0100:resets_mask<=6'b100_001;//A->B
+            4'b0101:resets_mask<=6'b010_001;//A->C
             //back
-            4'b1001:resets_mask<=6'b000_101;//
-            4'b1011:resets_mask<=6'b000_011;//
-            4'b1010:resets_mask<=6'b000_010;//
-            4'b1110:resets_mask<=6'b000_010;//
-            4'b1100:resets_mask<=6'b000_110;//
-            4'b1101:resets_mask<=6'b000_100;//
+            4'b1001:resets_mask<=6'b010_100;//C->A
+            4'b1011:resets_mask<=6'b001_100;//C->B
+            4'b1010:resets_mask<=6'b100_001;//A->B
+            4'b1110:resets_mask<=6'b010_001;//A->C
+            4'b1100:resets_mask<=6'b001_010;//B->C
+            4'b1101:resets_mask<=6'b100_010;//B->A
             //error
             default:resets_mask<=6'b111_000;
         endcase
