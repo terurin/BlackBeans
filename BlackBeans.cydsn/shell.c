@@ -9,6 +9,8 @@ static const char newline='\n';
 #define BUFFER_SIZE (256)
 void (*shell_puts_func)(const char*);
 
+
+
 void shell_init(){
     UART_Start();
     USBUART_Start(0, USBUART_3V_OPERATION);
@@ -88,11 +90,13 @@ void usb_process(){
 static void motor_fraction(int argc,char** argv);
 static void motor_q15(int argc,char** argv);
 static void motor_encoder(int argc,char** argv);
+static void motor_status(int argc,char** argv);
+static void shell_error(int,char**);//default error
+static void shell_echo(int,char**);
 
 void parse(char* str){
     static const char split[]=" ";
     char *argv[16],*word,*pos;
-    char buffer[256];
     argv[0]=word=strtok_r(str,split,&pos);
     size_t argc=0;
     for (argc=1;argc<16;argc++){
@@ -108,9 +112,12 @@ void parse(char* str){
         motor_q15(argc,argv);
     }else if (!strcmp(name,"me")){
         motor_encoder(argc,argv);
+    }else if (!strcmp(name,"echo")){
+        shell_echo(argc,argv);
+    }else if (!strcmp(name,"scan")){
+        motor_status(argc,argv);
     }else{
-        sniprintf(buffer,sizeof(buffer),"Error:%s\n",name);
-        shell_puts(buffer);
+        shell_error(1,name);
     }
 }
 
@@ -129,15 +136,53 @@ void motor_q15(int argc,char** argv){
     for (i=1;i<argc;i++){
         bldc_write(i-1,atoi(argv[i]));
     }
-    for (;i<4;i++){
+    for (;i<bldc_count+1;i++){
         bldc_write(i-1,0);
     }
 }
 
 void motor_encoder(int argc,char** argv){
+    (void)argc;
+    (void)argv;
     char line[256];
     snprintf(line,sizeof(line),"%d %d %d\n",
         bldc_read(0),bldc_read(1),bldc_read(2));
     
     shell_puts(line);
+}
+
+void motor_status(int argc,char** argv){
+    (void)argc;
+    (void)argv; 
+    unsigned int i;
+    char buffer[BUFFER_SIZE]="";
+    char tmp[BUFFER_SIZE];
+    for (i=0;i<bldc_count-1;i++){
+        strcat(buffer,itoa(bldc_status(i),tmp,2));
+        strcat(buffer," ");
+    }
+    strcat(buffer,itoa(bldc_status(bldc_count-1),tmp,2));
+    strcat(buffer,"\n");
+    shell_puts(buffer);
+}
+
+void shell_error(int argc,char** argv){
+    (void)argc;
+    char buffer[BUFFER_SIZE]="";
+    strcat(buffer,"Erorr:");
+    strcat(buffer,argv[0]);
+    strcat(buffer,"\n");
+    shell_puts(buffer);
+}
+
+void shell_echo(int argc,char** argv){
+    int i;
+    char buffer[BUFFER_SIZE]="";
+    for (i=1;i<argc-1;i++){
+        strcat(buffer,argv[i]);
+        strcat(buffer," ");
+    }
+    strcat(buffer,argv[argc-1]);
+    strcat(buffer,"\n");
+    shell_puts(buffer);
 }

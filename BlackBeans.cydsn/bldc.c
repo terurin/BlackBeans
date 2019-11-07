@@ -13,7 +13,7 @@ static const uint8_t status_mask_encoder_y=1<<4;
 static const uint8_t status_mask_error=1<<5;
 static const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
 static const uint8_t pwm_priority=1;//1/7 2番目の優先度
-static const unsigned int motor_count=3;
+const unsigned int bldc_count=3;
 //hall sensor
 static const int32_t cnt_init=100;
 #define HOLD_SIZE (100) //Hall Sensorの変化量の保持数
@@ -111,6 +111,22 @@ void bldc_write(int id, q15_t duty){
 int bldc_read(int id){
     return id<3?counters[id]:0;
 }
+
+uint32_t bldc_status(int id){
+    //ビット列
+    switch (id){
+    case 0:
+        return BLDC1_Status_Read();
+    case 1:
+        return BLDC2_Status_Read();
+    case 2:
+        return BLDC3_Status_Read();
+    default:
+        return 0;
+    };
+}
+
+
 
 static inline int32_t counter_reload(int id){
     int8_t diff;

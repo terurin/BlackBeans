@@ -1,6 +1,6 @@
 # Results
 *.cydsn/DP8051/*
-
+*.cylib/CortexM3/ARM_GCC_541/Release/
 #user files
 *.cywrk.*
 *.log
