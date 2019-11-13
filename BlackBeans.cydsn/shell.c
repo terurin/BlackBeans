@@ -4,16 +4,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include "motor.h"
 static const char newline='\n';
 #define BUFFER_SIZE (256)
 void (*shell_puts_func)(const char*);
 
-
-
 void shell_init(){
     UART_Start();
-    USBUART_Start(0, USBUART_3V_OPERATION);
+    //USBUART_Start(0, USBUART_3V_OPERATION);
 }
 
 void shell_puts(const char* str){
@@ -22,7 +20,6 @@ void shell_puts(const char* str){
     }
 }
 
-static void parse(char*);
 static inline void uart_process();
 static inline void usb_process();
 void shell_process(){
@@ -30,8 +27,8 @@ void shell_process(){
     shell_puts_func=UART_PutString;
     uart_process();
     //出力切り替え(usb)
-    shell_puts_func=USBUART_PutString;
-    usb_process();
+    //shell_puts_func=USBUART_PutString;
+    //usb_process();
 }
 
 void uart_process(){
@@ -48,7 +45,7 @@ void uart_process(){
         }else{
             rbuffer[rindex]='\0';
             rindex=0;
-            parse(rbuffer);
+            shell_system(rbuffer);
         }   
     }
 }
@@ -80,21 +77,17 @@ void usb_process(){
             }else{
                 rbuffer[rindex]='\0';
                 rindex=0;
-                parse(rbuffer);
+                shell_system(rbuffer);
             }    
         }
         break;
     }
 }
 
-static void motor_fraction(int argc,char** argv);
-static void motor_q15(int argc,char** argv);
-static void motor_encoder(int argc,char** argv);
-static void motor_status(int argc,char** argv);
 static void shell_error(int,char**);//default error
 static void shell_echo(int,char**);
 
-void parse(char* str){
+void shell_system(char* str){
     static const char split[]=" ";
     char *argv[16],*word,*pos;
     argv[0]=word=strtok_r(str,split,&pos);
@@ -105,66 +98,35 @@ void parse(char* str){
         argv[argc]=word;
     }
     
-    const char*const name=argv[0];
-    if (!strcmp(name,"mf")){
-        motor_fraction(argc,argv);
-    }else if (!strcmp(name,"mq")){
-        motor_q15(argc,argv);
-    }else if (!strcmp(name,"me")){
-        motor_encoder(argc,argv);
-    }else if (!strcmp(name,"echo")){
-        shell_echo(argc,argv);
-    }else if (!strcmp(name,"scan")){
-        motor_status(argc,argv);
-    }else{
-        shell_error(1,name);
-    }
+    shell_run(argc,argv);
 }
 
-void motor_fraction(int argc,char** argv){
-    int i;
-    for (i=1;i<argc;i++){
-        bldc_write_raw(i-1,atoi(argv[i]));
-    }
-    for (;i<4;i++){
-        bldc_write_raw(i-1,0);
-    }
-}
-
-void motor_q15(int argc,char** argv){
-    int i;
-    for (i=1;i<argc;i++){
-        bldc_write(i-1,atoi(argv[i]));
-    }
-    for (;i<bldc_count+1;i++){
-        bldc_write(i-1,0);
-    }
-}
-
-void motor_encoder(int argc,char** argv){
-    (void)argc;
-    (void)argv;
-    char line[256];
-    snprintf(line,sizeof(line),"%d %d %d\n",
-        bldc_read(0),bldc_read(1),bldc_read(2));
+void shell_run(int argc,char **argv){
     
-    shell_puts(line);
+    const static struct{
+        const char* name;
+        void (*func)(int,char**);
+    }items[]={
+        {"mq",motor_q15},
+        {"mf",motor_fraction},
+        {"me",motor_encoder},
+        {"ms",motor_status},
+        {"echo",shell_echo}
+    };
+    
+    unsigned int i;
+    const char *name=argv[0];
+    
+    if (!argc)return;
+    for (i=0;i<(sizeof(items)/sizeof(items[0]));i++){
+        if (!strcmp(name,items[i].name)){
+            items[i].func(argc,argv);
+            return;
+        }
+    }
+    shell_error(1,argv);
 }
 
-void motor_status(int argc,char** argv){
-    (void)argc;
-    (void)argv; 
-    unsigned int i;
-    char buffer[BUFFER_SIZE]="";
-    char tmp[BUFFER_SIZE];
-    for (i=0;i<bldc_count-1;i++){
-        strcat(buffer,itoa(bldc_status(i),tmp,2));
-        strcat(buffer," ");
-    }
-    strcat(buffer,itoa(bldc_status(bldc_count-1),tmp,2));
-    strcat(buffer,"\n");
-    shell_puts(buffer);
-}
 
 void shell_error(int argc,char** argv){
     (void)argc;

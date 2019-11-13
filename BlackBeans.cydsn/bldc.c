@@ -13,7 +13,7 @@ static const uint8_t status_mask_encoder_y=1<<4;
 static const uint8_t status_mask_error=1<<5;
 static const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
 static const uint8_t pwm_priority=1;//1/7 2番目の優先度
-const unsigned int bldc_count=3;
+const  int bldc_count=3;
 //hall sensor
 static const int32_t cnt_init=100;
 #define HOLD_SIZE (100) //Hall Sensorの変化量の保持数

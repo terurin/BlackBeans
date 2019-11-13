@@ -563,8 +563,8 @@
       <Data key="b0fde5e6-f44d-4921-bbb1-97b3b6b18248" value="M2PB" />
       <Data key="b5c01fd4-9b0a-4695-b66c-969bb5f0ca44" value="M2PC" />
       <Data key="b802bb01-396c-46a4-923c-088f4a91fbe2" value="M3HC" />
-      <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/8b77a6c4-10a0-4390-971c-672353e2a49c" value="USBUART_1_Dm" />
-      <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/618a72fc-5ddd-4df5-958f-a3d55102db42" value="USBUART_1_Dp" />
+      <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/8b77a6c4-10a0-4390-971c-672353e2a49c" value="USBUART_Dm" />
+      <Data key="beca5e2d-f70f-4900-a4db-7eca1ed3126e/618a72fc-5ddd-4df5-958f-a3d55102db42" value="USBUART_Dp" />
       <Data key="cc3bcd7e-5dc0-48ea-9bf6-6aa082be1ada" value="Vout_1" />
       <Data key="cc220632-056f-4488-9132-d51a149abff6" value="M2ERR_N" />
       <Data key="d6c370ff-d9d4-475b-b974-2b158588995b" value="M3ERROR" />
@@ -4114,7 +4114,7 @@
     </Group>
     <Group key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/783a8b05-5a74-435e-8a58-6ca5e228ee68">
       <Group key="0">
-        <Data key="Port Format" value="2,2" />
+        <Data key="Port Format" value="2,4" />
       </Group>
     </Group>
     <Group key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/0429675e-8241-4140-976f-1283463c8786">
@@ -4139,7 +4139,7 @@
     </Group>
     <Group key="27220521-4539-480f-aa05-b92f91f84ef8/11821782-5ca8-4a1f-92f5-fc1ccb9fda33/f7da473b-4ec7-4715-9fa4-f83eba234da3">
       <Group key="0">
-        <Data key="Port Format" value="2,4" />
+        <Data key="Port Format" value="2,2" />
       </Group>
     </Group>
     <Group key="77715107-f8d5-47e5-a629-0fb83101ac6b">

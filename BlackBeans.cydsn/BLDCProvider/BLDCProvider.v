@@ -15,13 +15,13 @@
 // Generated on 06/21/2019 at 16:05
 // Component: BLDCProvider
 module BLDCProvider (
-	output [2:0] PWMS,
-	output [2:0] RESETS_N,
 	input   Clock,
 	input   Direction,
 	input  [2:0] Halls,
 	input   Kill,
-	input   Pulse
+	input   Pulse,
+	output [2:0] PWMS,
+	output [2:0] RESETS_N
 );
 
 //`#start body` -- edit after this line, do not edit this line

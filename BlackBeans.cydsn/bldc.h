@@ -3,7 +3,7 @@
 #define __BLDC_HEADER_GUARD__
 #include "dsptype.h"
 
-    extern const unsigned int bldc_count;
+    extern const int bldc_count;
     void bldc_init();
     
     void bldc_write_raw(int id,int16_t);
