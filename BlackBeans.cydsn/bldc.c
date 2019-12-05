@@ -186,7 +186,6 @@ static void bldc_event_0(){
     const control_func func = event_controls[id];
     uint8_t now = BLDC1_Counter_ReadCounter();
     BLDC1_Counter_WriteCounter(counter_init);
-    
     const uint8_t status= BLDC1_Counter_ReadStatusRegister();
     switch (status&0x0C){
     case 0x08://underflow
@@ -225,6 +224,7 @@ static void bldc_event_1(){
         bldc_write(id,func(event_context[id]));
     }
 }
+
 static void bldc_event_2(){
     static const int id=2;
     const control_func func = event_controls[id];

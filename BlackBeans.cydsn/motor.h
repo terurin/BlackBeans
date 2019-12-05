@@ -12,4 +12,3 @@ void motor_rocate(int argc,char** argv);
 
 
 #endif
-    void motor_rocate(int argc,char** argv);
