@@ -15,50 +15,54 @@
 // Generated on 06/21/2019 at 16:05
 // Component: BLDCProvider
 module BLDCProvider (
-	input   Clock,
-	input   Direction,
-	input  [2:0] Halls,
-	input   Kill,
-	input   Pulse,
-	output [2:0] PWMS,
-	output [2:0] RESETS_N
+	input           clock,
+	input           direction,
+	input  [2:0]    halls,
+	input   kill,
+	input   pulse,
+	output [2:0] pwms,
+	output [2:0] resets_n,
+    output error
 );
 
 //`#start body` -- edit after this line, do not edit this line
 
 //`#start footer` -- edit after this line, do not edit this line
 
-reg [5:0] resets_mask;
-always @(posedge Clock or posedge Kill)begin
-    if (Kill)begin 
-        resets_mask<=6'b111_000;
-    end else if (!Pulse)begin
-        case ({Direction,Halls})
-            //front TODO 修正
-            4'b0001:resets_mask<=6'b001_010;//B->C
-            4'b0011:resets_mask<=6'b100_010;//B->A
-            4'b0010:resets_mask<=6'b010_100;//C->A
-            4'b0110:resets_mask<=6'b001_100;//C->B
-            4'b0100:resets_mask<=6'b100_001;//A->B
-            4'b0101:resets_mask<=6'b010_001;//A->C
+reg [6:0] error_resets_mask;
+always @(posedge clock or posedge kill)begin
+    if (kill)begin 
+         error_resets_mask<=7'b0_111_000;
+    end else if (!pulse)begin
+        casex ({direction,halls})
+            //front 
+            // duvw                       e uvw uvw
+            4'b0001:error_resets_mask<=7'b0_001_010;//B->C
+            4'b0011:error_resets_mask<=7'b0_100_010;//B->A
+            4'b0010:error_resets_mask<=7'b0_010_100;//C->A
+            4'b0110:error_resets_mask<=7'b0_001_100;//C->B
+            4'b0100:error_resets_mask<=7'b0_100_001;//A->B
+            4'b0101:error_resets_mask<=7'b0_010_001;//A->C
+            4'b0xxx:error_resets_mask<={1'b1,error_resets_mask[5:0]};
             //back
-            4'b1001:resets_mask<=6'b010_100;//C->A
-            4'b1011:resets_mask<=6'b001_100;//C->B
-            4'b1010:resets_mask<=6'b100_001;//A->B
-            4'b1110:resets_mask<=6'b010_001;//A->C
-            4'b1100:resets_mask<=6'b001_010;//B->C
-            4'b1101:resets_mask<=6'b100_010;//B->A
-            //error
-            default:resets_mask<=6'b111_000;
+            4'b1001:error_resets_mask<=7'b0_010_100;//C->A
+            4'b1011:error_resets_mask<=7'b0_001_100;//C->B
+            4'b1010:error_resets_mask<=7'b0_100_001;//A->B
+            4'b1110:error_resets_mask<=7'b0_010_001;//A->C
+            4'b1100:error_resets_mask<=7'b0_001_010;//B->C
+            4'b1101:error_resets_mask<=7'b0_100_010;//B->A
+            4'b1xxx:error_resets_mask<={1'b1,error_resets_mask[5:0]};
+            //default:error_resets_mask<=7'b1_111_000;
         endcase
     end else begin
-        resets_mask<=resets_mask;//hold
+        error_resets_mask<=error_resets_mask;//hold
     end
 end
 
 //output
-assign RESETS_N=~resets_mask[5:3];
-assign PWMS=resets_mask[2:0]&(Pulse?3'b111:3'b000);
+assign error= error_resets_mask[6];
+assign resets_n=~error_resets_mask[5:3];
+assign pwms=error_resets_mask[2:0]&(pulse?3'b111:3'b000);
 
 //`#end` -- edit above this line, do not edit this line
 endmodule

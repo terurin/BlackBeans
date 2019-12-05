@@ -7,5 +7,9 @@ void motor_q15(int argc,char** argv);
 void motor_encoder(int argc,char** argv);
 void motor_status(int argc,char** argv);
 
+void motor_rocate(int argc,char** argv);
+
+
+
 #endif
-    
+    void motor_rocate(int argc,char** argv);

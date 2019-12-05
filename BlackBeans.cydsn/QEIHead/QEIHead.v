@@ -13,8 +13,8 @@
 `include "cypress.v"
 //`#end` -- edit above this line, do not edit this line
 // Generated on 06/26/2019 at 20:30
-// Component: QEIHead
-module QEIHead (
+// Component: qei_up_downHead
+module qei_up_downHead (
 	output  down,
 	output  up,
 	input   clock,

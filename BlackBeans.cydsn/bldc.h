@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __BLDC_HEADER_GUARD__
 #define __BLDC_HEADER_GUARD__
 #include "dsptype.h"
@@ -14,6 +13,10 @@
     
     uint32_t bldc_status(int id);//入力ポート確認用
     
+    uint32_t bldc_timer(int id);//timer 確認用
+    
+     
+   
 
 #endif
     

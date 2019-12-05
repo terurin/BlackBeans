@@ -16,14 +16,18 @@
 #include "bldc.h"
 #include <string.h>
 #include "shell.h"
+#include "omni.h"
+#include "timer.h"
 static void test();
 static void init();
 
 
 int main(void){
+    volatile int dummy=0;
     init();
     while(1){
         shell_process();
+        //dummy++;
     }
 }
 
@@ -31,5 +35,4 @@ static void init(){
     CyGlobalIntEnable;     
     bldc_init();
     shell_init();
-    
 }

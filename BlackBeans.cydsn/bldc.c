@@ -1,5 +1,6 @@
 #include "bldc.h"
 #include <stdbool.h>
+#include <string.h>
 #include "project.h"
 //定数定義
 static const uint8_t ctrl_mask_none=0;
@@ -13,9 +14,9 @@ static const uint8_t status_mask_encoder_y=1<<4;
 static const uint8_t status_mask_error=1<<5;
 static const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
 static const uint8_t pwm_priority=1;//1/7 2番目の優先度
+static const uint8_t hall_priority=2;//2/7 3番目の優先度
 const  int bldc_count=3;
 //hall sensor
-static const int32_t cnt_init=100;
 #define HOLD_SIZE (100) //Hall Sensorの変化量の保持数
 
 static inline void ctrl_write_all(uint8_t value){
@@ -27,10 +28,15 @@ static inline void ctrl_write_all(uint8_t value){
 static void bldc_event_0();
 static void bldc_event_1();
 static void bldc_event_2();
+static void hall_event_0();
+static void hall_event_1();
+static void hall_event_2();
+
+//割り込み時の制御
 static void *event_context[3];
 static control_func event_controls[3];
-static int32_t counters[3]={0};
-
+static int32_t counters[3];
+static uint8_t counter_init=127;
 
 static inline void pwm_init(){
     //全て停止させる
@@ -52,6 +58,9 @@ static inline void pwm_init(){
     BLDC1_PWMEvent_SetPriority(pwm_priority);//startExの後
     BLDC2_PWMEvent_SetPriority(pwm_priority);
     BLDC3_PWMEvent_SetPriority(pwm_priority);
+    //割り込みハンドラーを削除
+    memset(event_context,0,sizeof(event_context));
+    memset(event_controls,0,sizeof(event_controls));
     //再開*/
     BLDC1_PWM_Start();
     BLDC2_PWM_Start();
@@ -59,13 +68,24 @@ static inline void pwm_init(){
 }
 
 
+
+
 static inline void hall_init(){
+    //ひとまず止める
+    BLDC1_Counter_Stop();
+    BLDC2_Counter_Stop();
+    BLDC3_Counter_Stop();
+    //割り込み設定
+    memset(counters,0,sizeof(counters));
+    //再開
     BLDC1_Counter_Start();
-    BLDC1_Counter_WriteCounter(cnt_init);
     BLDC2_Counter_Start();
-    BLDC2_Counter_WriteCounter(cnt_init);
     BLDC3_Counter_Start();
-    BLDC3_Counter_WriteCounter(cnt_init);
+    //設定
+    BLDC1_Counter_WriteCounter(counter_init);
+    BLDC2_Counter_WriteCounter(counter_init);
+    BLDC3_Counter_WriteCounter(counter_init);
+    
 }
 
 void bldc_init(){
@@ -73,9 +93,9 @@ void bldc_init(){
     ctrl_write_all(ctrl_mask_none);
     pwm_init();
     hall_init();
-    bldc_write(0,1500);
-    bldc_write(1,1500);
-    bldc_write(2,1500);
+    bldc_write_raw(0,0);
+    bldc_write_raw(1,0);
+    bldc_write_raw(2,0);
 }
 
 static inline int16_t abs16(int16_t x){
@@ -105,11 +125,25 @@ void bldc_write_raw(int id,int16_t value){
 void bldc_write(int id, q15_t duty){
     //cast
     int16_t value = ((int32_t)pwm_period*duty)>>16;
-    bldc_write_raw(id,duty);
+    bldc_write_raw(id,value);
+}
+
+void bldc_ctrl_write(int id,uint8_t ctrl){
+    switch (id){
+    case 0:
+        BLDC1_Control_Write(ctrl);
+        return;
+    case 1:
+        BLDC2_Control_Write(ctrl);
+        return ;
+    case 2:
+        BLDC3_Control_Write(ctrl);
+        return ;
+    }
 }
 
 int bldc_read(int id){
-    return id<3?counters[id]:0;
+    return id<bldc_count?counters[id]:0;
 }
 
 uint32_t bldc_status(int id){
@@ -126,52 +160,67 @@ uint32_t bldc_status(int id){
     };
 }
 
-
-
-static inline int32_t counter_reload(int id){
-    int8_t diff;
+uint32_t bldc_timer(int id){
     switch (id){
     case 0:
-        diff=(int32_t)BLDC1_Counter_ReadCounter()-cnt_init;
-        BLDC1_Counter_WriteCounter(cnt_init);
-        return diff;
+        return BLDC1_PWM_ReadCounter();
     case 1:
-        diff=(int32_t)BLDC2_Counter_ReadCounter()-cnt_init;
-        BLDC2_Counter_WriteCounter(cnt_init);
-        return diff;
+        return BLDC2_PWM_ReadCounter();
     case 2:
-        diff=(int32_t)BLDC3_Counter_ReadCounter()-cnt_init;
-        BLDC3_Counter_WriteCounter(cnt_init);
-        return diff;
+        return BLDC3_PWM_ReadCounter();
     default:
         return 0;
+    };  
+}
+
+void bldc_control(int id,control_func ctrl,void* context){
+    if (id<bldc_count){
+        event_context[id]=context;
+        event_controls[id]=ctrl;
     }
+    
 }
 
 static void bldc_event_0(){
     static const int id=0;
     const control_func func = event_controls[id];
-    //hall sensor record
-    static int32_t taps[HOLD_SIZE]={0};
-    static int32_t index=0;
-    counters[id]-=taps[index];
-    counters[id]+=taps[index]=counter_reload(id);
-    index = index+1<HOLD_SIZE?index+1:0;
-   
+    uint8_t now = BLDC1_Counter_ReadCounter();
+    BLDC1_Counter_WriteCounter(counter_init);
+    
+    const uint8_t status= BLDC1_Counter_ReadStatusRegister();
+    switch (status&0x0C){
+    case 0x08://underflow
+        counters[0]+=(int32_t)now-counter_init-255;
+        break;
+    case 0x04://overflow
+        counters[0]+=(int32_t)now-counter_init+255;
+        break;
+    default://normal
+        counters[0]+=(int32_t)now-counter_init;
+    }
+    
     if (func){
         bldc_write(id,func(event_context[id]));
     }
-    
+
 }
 static void bldc_event_1(){
     static const int id=1;
     const control_func func = event_controls[id];
-    //hall sensor record
-    static int32_t taps[HOLD_SIZE]={0};
-    static int32_t index=0;
-    counters[id]-=taps[index];
-    counters[id]+=taps[index]=counter_reload(id);
-    index = index+1<HOLD_SIZE?index+1:0;
+    uint8_t now = BLDC2_Counter_ReadCounter();
+    BLDC2_Counter_WriteCounter(counter_init);
+    
+    const uint8_t status= BLDC2_Counter_ReadStatusRegister();
+    switch (status&0x0C){
+    case 0x08://underflow
+        counters[1]+=(int32_t)now-counter_init+255;
+        break;
+    case 0x04://overflow
+        counters[1]+=(int32_t)now-counter_init+255;
+        break;
+    default://normal
+        counters[1]+=(int32_t)now-counter_init;
+    }
     if (func){
         bldc_write(id,func(event_context[id]));
     }
@@ -179,12 +228,21 @@ static void bldc_event_1(){
 static void bldc_event_2(){
     static const int id=2;
     const control_func func = event_controls[id];
-    //hall sensor record
-    static int32_t taps[HOLD_SIZE]={0};
-    static int32_t index=0;
-    counters[id]-=taps[index];
-    counters[id]+=taps[index]=counter_reload(id);
-    index = index+1<HOLD_SIZE?index+1:0;
+    
+    uint8_t now = BLDC3_Counter_ReadCounter();
+    BLDC3_Counter_WriteCounter(counter_init);
+    
+    const uint8_t status= BLDC3_Counter_ReadStatusRegister();
+    switch (status&0x0C){
+    case 0x08://underflow
+        counters[2]+=(int32_t)now-counter_init+255;
+        break;
+    case 0x04://overflow
+        counters[2]+=(int32_t)now-counter_init+255;
+        break;
+    default://normal
+        counters[2]+=(int32_t)now-counter_init;
+    }
     if (func){
         bldc_write(id,func(event_context[id]));
     }

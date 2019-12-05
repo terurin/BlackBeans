@@ -1,0 +1,11 @@
+#pragma once
+#ifndef __TIMER_HEADER_GUARD__
+#define __TIMER_HEADER_GUARD__
+
+void timer_wait_us(unsigned int);    
+void timer_wait_ms(unsigned int);
+void timer_wait_s(unsigned int);    
+    
+    
+#endif
+    
