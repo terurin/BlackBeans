@@ -12,3 +12,4 @@ void shell_echo(int,char**);
 void shell_help(int,char**);
 void shell_list(int,char**);
 void shell_last(int,char**);
+void shell_repeat(int argc,char **argv);

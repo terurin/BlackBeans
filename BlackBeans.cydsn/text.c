@@ -2,11 +2,13 @@
 
 char* text_bits(char* buffer,unsigned int value,size_t size){
     size_t i;
-    unsigned int mask;
-    for (i=0;i<size-1;i++){
-        mask= 1<<(size-i-1);
-        buffer[i]=value&mask?'1':'0';
+    unsigned int mask=1;
+    //後ろから書き込む
+    char* it=buffer+size-1;
+    *it ='\0';
+    for (;it!=buffer-1;it--){
+        *it = value&mask?'1':'0';
+        mask<<=1;
     }
-    buffer[size-1]='\0';
     return buffer;
 }

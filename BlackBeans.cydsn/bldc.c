@@ -181,22 +181,47 @@ void bldc_control(int id,control_func ctrl,void* context){
     
 }
 
+static int position(unsigned int state){
+    switch (state){
+        case 0b001:return 0;
+        case 0b011:return 1;
+        case 0b010:return 2;
+        case 0b110:return 3;
+        case 0b100:return 4;
+        case 0b101:return 5;
+        default:return -1;//Error
+    }
+}
+#define ABS(X) (X)>0?(X):-(X)
+static int diff(int now,int last){
+    if (now<0&&last<0)return 0;
+    static const int table [6][6]={   
+        {0,1,2,0,-2,-1},
+        {-1,0,1,2,0,-2},
+        {-2,-1,0,1,2,0},
+        {0,-2,-1,0,-1,-2},
+        {2,0,-2,-1,0,1},
+        {1,2,0,-2,-1,0}};
+        
+    return table[last][now];
+}
+
 static void bldc_event_0(){
     static const int id=0;
     const control_func func = event_controls[id];
-    uint8_t now = BLDC1_Counter_ReadCounter();
-    BLDC1_Counter_WriteCounter(counter_init);
-    const uint8_t status= BLDC1_Counter_ReadStatusRegister();
-    switch (status&0x0C){
-    case 0x08://underflow
-        counters[0]+=(int32_t)now-counter_init-255;
-        break;
-    case 0x04://overflow
-        counters[0]+=(int32_t)now-counter_init+255;
-        break;
-    default://normal
-        counters[0]+=(int32_t)now-counter_init;
+    static int last=0;
+    static int count=0;
+    static int hold=0;
+    int now=bldc_status(id)&0x7;
+    hold+=diff(position(now),position(last));
+    last=now;
+    
+    count=(count+1)%26;
+    if (count==25){
+        counters[id]=hold;
+        hold=0;
     }
+    
     
     if (func){
         bldc_write(id,func(event_context[id]));
@@ -206,20 +231,20 @@ static void bldc_event_0(){
 static void bldc_event_1(){
     static const int id=1;
     const control_func func = event_controls[id];
-    uint8_t now = BLDC2_Counter_ReadCounter();
-    BLDC2_Counter_WriteCounter(counter_init);
+
+    static int last=0;
+    static int count=0;
+    static int hold=0;
+    int now=bldc_status(id)&0x7;
+    hold+=diff(position(now),position(last));
+    last=now;
     
-    const uint8_t status= BLDC2_Counter_ReadStatusRegister();
-    switch (status&0x0C){
-    case 0x08://underflow
-        counters[1]+=(int32_t)now-counter_init+255;
-        break;
-    case 0x04://overflow
-        counters[1]+=(int32_t)now-counter_init+255;
-        break;
-    default://normal
-        counters[1]+=(int32_t)now-counter_init;
+    count=(count+1)%26;
+    if (count==25){
+        counters[id]=hold;
+        hold=0;
     }
+    
     if (func){
         bldc_write(id,func(event_context[id]));
     }
@@ -228,20 +253,17 @@ static void bldc_event_1(){
 static void bldc_event_2(){
     static const int id=2;
     const control_func func = event_controls[id];
+    static int last=0;
+    static int count=0;
+    static int hold=0;
+    int now=bldc_status(id)&0x7;
+    hold+=diff(position(now),position(last));
+    last=now;
     
-    uint8_t now = BLDC3_Counter_ReadCounter();
-    BLDC3_Counter_WriteCounter(counter_init);
-    
-    const uint8_t status= BLDC3_Counter_ReadStatusRegister();
-    switch (status&0x0C){
-    case 0x08://underflow
-        counters[2]+=(int32_t)now-counter_init+255;
-        break;
-    case 0x04://overflow
-        counters[2]+=(int32_t)now-counter_init+255;
-        break;
-    default://normal
-        counters[2]+=(int32_t)now-counter_init;
+    count=(count+1)%26;
+    if (count==25){
+        counters[id]=hold;
+        hold=0;
     }
     if (func){
         bldc_write(id,func(event_context[id]));

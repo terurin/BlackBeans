@@ -5,8 +5,27 @@
 #include <string.h>
 #include "shell.h"
 #include "text.h"
-#include<math.h>
+#define M_PI 3.141592
+#include <math.h>
 #define BUFFER_SIZE (256)
+
+static q1516_t table_x[3];
+static q1516_t table_y[3];
+
+void motor_init(){
+
+    const static float angle[3]={0.0f,M_PI*2.0f/3.0f,-M_PI*2.0f/3.0f};
+    float t;
+    unsigned int i;
+    for (i=0;i<sizeof(angle)/sizeof(angle[0]);i++){
+        table_x[i]=cosf(angle[i])*(1<<16);
+        table_y[i]=sinf(angle[i])*(1<<16);
+    }
+    
+}
+
+
+
 
 void motor_fraction(int argc,char** argv){
     int i;
@@ -47,31 +66,28 @@ void motor_status(int argc,char** argv){
     (void)argv; 
     int i;
     char buffer[BUFFER_SIZE]="";
-    char tmp[8];
+    char tmp[BUFFER_SIZE];
     for (i=0;i<bldc_count-1;i++){
-        strcat(buffer,text_bits(tmp,bldc_status(i),7));
-        strcat(buffer," ");
+        sprintf(tmp,"%02x ",bldc_status(i)&0x7);
+        strcat(buffer,tmp);
     }
-    strcat(buffer,text_bits(tmp,bldc_status(bldc_count-1),6));
-    strcat(buffer,"\n");
+    sprintf(tmp,"%02x\n",bldc_status(i)&0x7);
+    strcat(buffer,tmp);
     shell_puts(buffer);
 }
 
 #define M_PI (3.14f)
 void motor_rocate(int argc,char** argv){
-
-    const static float table_x[]={sinf(0.0),sinf(M_PI*2.0f/3.0f),sinf(M_PI*4.0f/3.0f)};
-    const static float table_y[]={cosf(0.0),cosf(M_PI*2.0f/3.0f),cosf(M_PI*4.0f/3.0f)};
     
-    const float x = argc>1?atoff(argv[1]):0;
-    const float y = argc>1?atoff(argv[2]):0;
-    const float theta = argc>1?atoff(argv[3]):0;
+    const q1516_t x = argc>1?atoff(argv[1])*(1<<16):0;
+    const q1516_t y = argc>2?atoff(argv[2])*(1<<16):0;
+    const q1516_t theta = argc>3?atoff(argv[3])*(1<<16):0;
     
     int i;
     q3132_t t;
     for (i=0;i<bldc_count;i++){
-        t=table_x[i]*x+table_y[i]*y;
-        bldc_write(i,t*100);
+        t=(q3132_t)table_x[i]*x+(q3132_t)table_y[i]*y;
+        bldc_write(i,t>>16);
     }
 }
 

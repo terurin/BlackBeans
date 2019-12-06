@@ -32,64 +32,80 @@ always @(posedge clock)begin
         now<=0;
         last<=0;
     end else begin
-        now<=decode(halls);
+        now<=filter(halls,now);
         last<=now;
     end
 end
 
-//qei decode
-reg [2:0] up_down;
-always @(posedge clock)begin
-    if (reset)begin
-        up_down<=0;
-    end else begin
-        up_down<=qei_up_down(last,now);
-    end
-end
-//write out
-assign up= up_down[0];
-assign down= up_down[1];
+wire [2:0]up_down=decode(now,last);
+assign up =up_down[1];
+assign down =up_down[0];
 
-//QEIの入力をデコードする
-function [2:0] qei_up_down;
-input [3:0] last;
-input [3:0] now;
+function [2:0]decode;
+input [3:0]now;
+input [3:0]last;
 begin
-    case ({last,now})
-    //正転
-    6'o01:qei_up_down=2'b01;
-    6'o12:qei_up_down=2'b01;
-    6'o23:qei_up_down=2'b01;
-    6'o34:qei_up_down=2'b01;
-    6'o45:qei_up_down=2'b01;
-    6'o56:qei_up_down=2'b01;
-    6'o60:qei_up_down=2'b01;
-    //逆転
-    6'o06:qei_up_down=2'b10;
-    6'o65:qei_up_down=2'b10;
-    6'o54:qei_up_down=2'b10;
-    6'o43:qei_up_down=2'b10;
-    6'o32:qei_up_down=2'b10;
-    6'o21:qei_up_down=2'b10;
-    6'o10:qei_up_down=2'b10;
-    //Error
-    default:qei_up_down=2'b00;
+    casex ({now,last})
+    //0
+    6'b000_xxx:decode=2'b00;
+    //1
+    6'b001_010:decode=2'b01;
+    6'b001_011:decode=2'b01;
+    6'b001_001:decode=2'b00;
+    6'b001_101:decode=2'b10;
+    6'b001_100:decode=2'b10;
+    6'b001_xxx:decode=2'b00;
+    //2
+    6'b011_101:decode=2'b01;
+    6'b011_001:decode=2'b01;
+    6'b011_011:decode=2'b00;
+    6'b011_010:decode=2'b10;
+    6'b011_110:decode=2'b10;
+    6'b011_xxx:decode=2'b00;
+    //3
+    6'b010_001:decode=2'b01;
+    6'b010_011:decode=2'b01;
+    6'b010_010:decode=2'b00;
+    6'b010_110:decode=2'b10;
+    6'b010_100:decode=2'b10;
+    6'b010_xxx:decode=2'b00;
+    //4
+    6'b110_011:decode=2'b01;
+    6'b110_010:decode=2'b01;
+    6'b110_110:decode=2'b00;
+    6'b110_100:decode=2'b10;
+    6'b110_101:decode=2'b10;
+    6'b110_xxx:decode=2'b00;
+    //5
+    6'b100_010:decode=2'b01;
+    6'b100_110:decode=2'b01;
+    6'b100_100:decode=2'b00;
+    6'b100_101:decode=2'b10;
+    6'b100_001:decode=2'b10;
+    6'b100_xxx:decode=2'b00;
+    //6
+    6'b101_110:decode=2'b01;
+    6'b101_100:decode=2'b01;
+    6'b101_101:decode=2'b00;
+    6'b101_001:decode=2'b10;
+    6'b101_011:decode=2'b10;
+    6'b101_xxx:decode=2'b00;
+    //7
+    6'b111_xxx:decode=2'b00;
     endcase
 end
 endfunction
 
-//角度を求める
-function [3:0] decode;
-input [3:0]halls;
+function [3:0]filter;
+input [3:0]inputs;
+input [3:0]history;
 begin
-    case (halls)
-    3'b001:decode=0;
-    3'b011:decode=1;
-    3'b010:decode=2;
-    3'b110:decode=3;
-    3'b100:decode=4;
-    3'b101:decode=5;
-    default:decode=7;//Error
+    case(inputs)
+    //NG
+    //3'b000:filter=history;
+    //3'b111:filter=history;
+    //OK
+    default:filter=inputs;
     endcase
 end
 endfunction

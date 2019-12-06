@@ -25,10 +25,11 @@ const static shell_item_t items[]={
     {"me",motor_encoder,"encoder"},
     {"ms",motor_status,"motor status"},
     {"echo",shell_echo,"echo echo"},
-    {"mr",motor_rocate,"motor rocate -TODO"},
+    {"mr",motor_rocate,"motor rocate}"},
     {"help",shell_help,"system help"},
     {"ls",shell_list,"list command"},
     {"!",shell_last,"run last command"},
+    {"repeat",shell_repeat,"repeat"},
 };
 //過去一回分の記録
 static char history_buffer[BUFFER_SIZE];
@@ -39,6 +40,7 @@ void shell_init(){
     UART_Start();
     //USBUART_Start(0, USBUART_3V_OPERATION);
     shell_puts_func=UART_PutString;
+    motor_init();
 }
 
 void shell_puts(const char* str){
@@ -200,4 +202,10 @@ void shell_list(int argc,char** argv){
 void shell_last(int argc,char** argv){
     (void)argc,(void)argv;
     shell_run(history_argc,history_argv);
+}
+
+void shell_repeat(int argc,char **argv){
+    do{
+        shell_run(argc-1,argv+1);
+    }while(UART_GetRxBufferSize()==0);
 }
