@@ -12,7 +12,7 @@ static const uint8_t status_mask_encoder=0b11<<3;
 static const uint8_t status_mask_encoder_x=1<<3;
 static const uint8_t status_mask_encoder_y=1<<4;
 static const uint8_t status_mask_error=1<<5;
-static const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
+const uint16_t pwm_period=7799;//10kHz@Bus=26MHz
 static const uint8_t pwm_priority=1;//1/7 2番目の優先度
 static const uint8_t hall_priority=2;//2/7 3番目の優先度
 const  int bldc_count=3;
@@ -43,6 +43,9 @@ static inline void pwm_init(){
     BLDC1_PWM_Stop();
     BLDC2_PWM_Stop();
     BLDC3_PWM_Stop();
+    //管理領域初期化
+    memset(event_context,0,sizeof(event_context));
+    memset(event_controls,0,sizeof(event_controls));
     //周期設定
     BLDC1_PWM_WritePeriod(pwm_period);
     BLDC2_PWM_WritePeriod(pwm_period);
@@ -58,9 +61,6 @@ static inline void pwm_init(){
     BLDC1_PWMEvent_SetPriority(pwm_priority);//startExの後
     BLDC2_PWMEvent_SetPriority(pwm_priority);
     BLDC3_PWMEvent_SetPriority(pwm_priority);
-    //割り込みハンドラーを削除
-    memset(event_context,0,sizeof(event_context));
-    memset(event_controls,0,sizeof(event_controls));
     //再開*/
     BLDC1_PWM_Start();
     BLDC2_PWM_Start();
@@ -146,6 +146,12 @@ int bldc_read(int id){
     return id<bldc_count?counters[id]:0;
 }
 
+void bldc_clear(int id){
+    if (id<bldc_count){
+        counters[id]=0;
+    }
+}
+
 uint32_t bldc_status(int id){
     //ビット列
     switch (id){
@@ -209,20 +215,13 @@ static int diff(int now,int last){
 static void bldc_event_0(){
     static const int id=0;
     const control_func func = event_controls[id];
+    
     static int last=0;
-    static int count=0;
-    static int hold=0;
+    //static int count=0;
+    //static int hold=0;
     int now=bldc_status(id)&0x7;
-    hold+=diff(position(now),position(last));
+    counters[id]+=diff(position(now),position(last));
     last=now;
-    
-    count=(count+1)%26;
-    if (count==25){
-        counters[id]=hold;
-        hold=0;
-    }
-    
-    
     if (func){
         bldc_write(id,func(event_context[id]));
     }
@@ -233,17 +232,11 @@ static void bldc_event_1(){
     const control_func func = event_controls[id];
 
     static int last=0;
-    static int count=0;
-    static int hold=0;
+    //static int count=0;
+    //static int hold=0;
     int now=bldc_status(id)&0x7;
-    hold+=diff(position(now),position(last));
+    counters[id]+=diff(position(now),position(last));
     last=now;
-    
-    count=(count+1)%26;
-    if (count==25){
-        counters[id]=hold;
-        hold=0;
-    }
     
     if (func){
         bldc_write(id,func(event_context[id]));
@@ -254,17 +247,12 @@ static void bldc_event_2(){
     static const int id=2;
     const control_func func = event_controls[id];
     static int last=0;
-    static int count=0;
-    static int hold=0;
+    //static int count=0;
+    //static int hold=0;
     int now=bldc_status(id)&0x7;
-    hold+=diff(position(now),position(last));
+    counters[id]+=diff(position(now),position(last));
     last=now;
     
-    count=(count+1)%26;
-    if (count==25){
-        counters[id]=hold;
-        hold=0;
-    }
     if (func){
         bldc_write(id,func(event_context[id]));
     }

@@ -25,11 +25,12 @@ const static shell_item_t items[]={
     {"me",motor_encoder,"encoder"},
     {"ms",motor_status,"motor status"},
     {"echo",shell_echo,"echo echo"},
-    {"mr",motor_rocate,"motor rocate}"},
+    {"mfr", motor_fraction_rocate,"motor rocate}"},
     {"help",shell_help,"system help"},
     {"ls",shell_list,"list command"},
     {"!",shell_last,"run last command"},
     {"repeat",shell_repeat,"repeat"},
+    {"mp",motor_pulse,"pid on motor pulse"},
 };
 //過去一回分の記録
 static char history_buffer[BUFFER_SIZE];

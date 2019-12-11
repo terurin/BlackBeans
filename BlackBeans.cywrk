@@ -8,9 +8,9 @@
 <files />
 <projects>
 <v>.\BlackBeans.cydsn\BlackBeans.cyprj</v>
-<v>.\Robotics.cylib\Robotics.cyprj</v>
 <v>.\FreeRTOS.cylib\FreeRTOS.cyprj</v>
 <v>.\Shell.cylib\Shell.cyprj</v>
+<v>.\Robotics.cylib\Robotics.cyprj</v>
 </projects>
 <workspace_id v="7af7c7d3-4ebc-4e37-8cce-a2e31d24b60a" />
 <WriteAppVersionLastSavedWith v="4.2.0.641" />
