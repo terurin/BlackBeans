@@ -24,9 +24,13 @@ static int pid_targets[TABLE_SIZE];//[pulse/sec]
 static q1516_t pid_ps[TABLE_SIZE];
 static q1516_t pid_is[TABLE_SIZE];
 static q1516_t pid_ds[TABLE_SIZE];
+//PID監視用
+static int pid_nows[TABLE_SIZE];
+static q1516_t pid_errors[TABLE_SIZE];
+static q1516_t pid_sum_errors[TABLE_SIZE];
 //制御周期に関するパラメータ
-static const int taps=260;//100Hz
-static const int frequency=120;//Hz
+static const int taps=130;//200Hz
+static const int frequency=200;//Hz
 
 static inline int clamp(int value,int max,int min){
     if (max<value){
@@ -75,11 +79,11 @@ void motor_init(){
 void motor_fraction(int argc,char** argv){
     int i;
     for (i=1;i<argc;i++){
-        bldc_control(i,NULL,NULL);
+        bldc_control(i-1,NULL,NULL);
         bldc_write_raw(i-1,atoi(argv[i]));
     }
     for (;i<4;i++){
-        bldc_control(i,NULL,NULL);
+        bldc_control(i-1,NULL,NULL);
         bldc_write_raw(i-1,0);
     }
 }
@@ -87,11 +91,11 @@ void motor_fraction(int argc,char** argv){
 void motor_q15(int argc,char** argv){
     int i;
     for (i=1;i<argc;i++){
-        bldc_control(i,NULL,NULL);
+        bldc_control(i-1,NULL,NULL);
         bldc_write(i-1,atoi(argv[i]));
     }
     for (;i<bldc_count+1;i++){
-        bldc_control(i,NULL,NULL);
+        bldc_control(i-1,NULL,NULL);
         bldc_write(i-1,0);
     }
 }
@@ -152,85 +156,80 @@ void motor_fraction_rocate(int argc,char** argv){
     }
 }
 
-#include <UART.h>
-static q1516_t motor_pid_0(void *context){
+static q15_t motor_pid_0(void *context){
     (void)context;
     const static unsigned id=0;
     static int wait=0;
-    static q1516_t result=0;
-    static q1516_t last_error=0;
+    static q15_t result=0;
     static q1516_t sum_error=0;
     if (wait++==taps){
         wait=0;
-        int now = bldc_read(id)*frequency;
-        bldc_clear(id);
-        int target =pid_targets[id];
-        int error=target-now;
+        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
+        int target=pid_targets[id];
+        int error=pid_errors[id]=target-now;
         q4716_t sum=0;
         sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*sum_error;
-        sum+=(q4716_t)pid_ds[id]*(error-last_error);
+        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
+        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
         //update
-        sum_error=clip32_add(error,sum_error);
-        last_error=error;
-        result=sum>>16;
+        pid_sum_errors[id]=clip32_add(error,sum_error);
+        pid_errors[id]=error;
+        result=clip16(sum>>16);
     }
     return result;
 }
 
-static q1516_t motor_pid_1(void *context){
+static q15_t motor_pid_1(void *context){
     (void)context;
     const static unsigned id=1;
     static int wait=0;
-    static q1516_t result=0;
+    static q15_t result=0;
     static q1516_t last_error=0;
     static q1516_t sum_error=0;
     if (wait++==taps){
         wait=0;
-        int now = bldc_read(id)*frequency;
-        bldc_clear(id);
-        int target =pid_targets[id];
-        int error=target-now;
+        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
+        int target=pid_targets[id];
+        int error=pid_errors[id]=target-now;
         q4716_t sum=0;
         sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*sum_error;
-        sum+=(q4716_t)pid_ds[id]*(error-last_error);
+        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
+        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
         //update
-        sum_error=clip32_add(error,sum_error);
-        last_error=error;
-        result=sum>>16;
+        pid_sum_errors[id]=clip32_add(error,sum_error);
+        pid_errors[id]=error;
+        result=clip16(sum>>16);
     }
     return result;
 
 }
 
-static q1516_t motor_pid_2(void *context){
+static q15_t motor_pid_2(void *context){
     (void)context;
     const static unsigned id=2;
     static int wait=0;
-    static q1516_t result=0;
+    static q15_t result=0;
     static q1516_t last_error=0;
     static q1516_t sum_error=0;
     if (wait++==taps){
         wait=0;
-        int now = bldc_read(id)*frequency;
-        bldc_clear(id);
-        int target =pid_targets[id];
-        int error=target-now;
+        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
+        int target=pid_targets[id];
+        int error=pid_errors[id]=target-now;
         q4716_t sum=0;
         sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*sum_error;
-        sum+=(q4716_t)pid_ds[id]*(error-last_error);
+        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
+        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
         //update
-        sum_error=clip32_add(error,sum_error);
-        last_error=error;
-        result=sum>>16;
+        pid_sum_errors[id]=clip32_add(error,sum_error);
+        pid_errors[id]=error;
+        result=clip16(sum>>16);
     }
     return result;
 }
 
-void motor_pulse(int argc,char** argv){ 
-    const static control_func controls[TABLE_SIZE]={motor_pid_0,motor_pid_1,motor_pid_2};
+const static control_func controls[TABLE_SIZE]={motor_pid_0,motor_pid_1,motor_pid_2};
+void motor_pulse(int argc,char** argv){     
     int i;
     for (i=0;i<TABLE_SIZE;i++){
         pid_targets[i]=(argc>i+1)?atoi(argv[i+1]):0.0;
@@ -240,5 +239,32 @@ void motor_pulse(int argc,char** argv){
 }
 
 void motor_move(int argc,char** argv){
-    
+    const static q1516_t gain = 0xffff;//f1516変換用
+    const q1516_t x = argc>1?atoi(argv[1])*gain:0;//[mm/sec]
+    const q1516_t y = argc>2?atoi(argv[2])*gain:0;//[mm/sec]
+    const q1516_t theta = argc>3?atoff(argv[3])*gain:0;//[mrad/sec] ミリradです
+    int i;
+    char buffer[BUFFER_SIZE]="";
+    char tmp[BUFFER_SIZE];
+    for (i=0;i<TABLE_SIZE;i++){
+        q3132_t sum=0;//[mpulse/sec]
+        sum +=(q3132_t) table_x[i]*x;
+        sum +=(q3132_t) table_y[i]*y;
+        sum +=(q3132_t) table_theta[i]*theta;
+        int pulse= (sum/1000)>>32;
+        pid_targets[i]=pulse;
+        bldc_clear(i);
+        bldc_control(i,controls[i],NULL);
+    }
+}
+
+void motor_watch(int argc,char* argv){
+    char buffer[BUFFER_SIZE]="";
+    char tmp[BUFFER_SIZE];
+    int i;
+    for (i=0;i<TABLE_SIZE;i++){
+        snprintf(tmp,BUFFER_SIZE,"id=%d,target=%d,now=%d,sum=%d\n",i,pid_targets[i],pid_nows[i],pid_errors[i]);
+        strcat(buffer,tmp);
+    }
+    shell_puts(buffer);
 }

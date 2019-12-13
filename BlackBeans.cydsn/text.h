@@ -6,5 +6,6 @@
     
     //[0,size-1)bitを表示する
     char* text_bits(char*,unsigned int value,size_t size);
+    
 #endif
     

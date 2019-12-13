@@ -11,5 +11,5 @@ void motor_status(int argc,char** argv);
 void motor_fraction_rocate(int argc,char** argv);
 void motor_pulse(int argc,char** argv);
 void motor_move(int argc,char** argv);
-
+void motor_watch(int argc,char* argv);
 #endif

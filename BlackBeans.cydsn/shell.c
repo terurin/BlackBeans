@@ -31,6 +31,8 @@ const static shell_item_t items[]={
     {"!",shell_last,"run last command"},
     {"repeat",shell_repeat,"repeat"},
     {"mp",motor_pulse,"pid on motor pulse"},
+    {"mv",motor_move,"pid on robot move[mm/sec]"},
+    {"watch",motor_watch,"watch pid parameters"},
 };
 //過去一回分の記録
 static char history_buffer[BUFFER_SIZE];
