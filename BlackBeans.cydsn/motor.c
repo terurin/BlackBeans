@@ -7,8 +7,10 @@
 #include "clip.h"
 #include "shell.h"
 #include "text.h"
+#include "pidc.h"
 #define M_PI 3.141592
 #include <math.h>
+#include <assert.h>
 #define BUFFER_SIZE (256)
 
 #define TABLE_SIZE (3)
@@ -21,16 +23,15 @@ static q1516_t table_raw_theta[TABLE_SIZE];
 static q1516_t table_k[TABLE_SIZE];
 //PID制御に関するパラメータ
 static int pid_targets[TABLE_SIZE];//[pulse/sec]
-static q1516_t pid_ps[TABLE_SIZE];
-static q1516_t pid_is[TABLE_SIZE];
-static q1516_t pid_ds[TABLE_SIZE];
+static pidc_t pid_controllors[TABLE_SIZE];
+static priscaler_t pid_priscalers[TABLE_SIZE];
 //PID監視用
 static int pid_nows[TABLE_SIZE];
 static q1516_t pid_errors[TABLE_SIZE];
-static q1516_t pid_sum_errors[TABLE_SIZE];
+static q1516_t pid_error_sums[TABLE_SIZE];
+static q1516_t pid_results[TABLE_SIZE];
 //制御周期に関するパラメータ
-static const int taps=130;//200Hz
-static const int frequency=200;//Hz
+static const int frequency=26000;//Hz
 
 static inline int clamp(int value,int max,int min){
     if (max<value){
@@ -56,10 +57,10 @@ void motor_init(){
     //q1516変換係数
     const static int gain =0xffff; 
     //PID係数変換用
-    const static float ps[TABLE_SIZE]={4.0f,6.0f,6.0f};
-    const static float is[TABLE_SIZE]={3.0f,3.0f,3.0f};
+    const static float ps[TABLE_SIZE]={8.0f,8.0f,8.0f};
+    const static float is[TABLE_SIZE]={4.0f,4.0f,4.0f};
     const static float ds[TABLE_SIZE]={1.0f,1.0f,1.0f};
-    
+    static const int priscale=260;
     for (i=0;i<TABLE_SIZE;i++){
         const float k=(2.0*pulses[i])/(wheels[i]*gear[i]);//変換係数
         table_x[i]=k*cosf(angles[i])*gain;
@@ -69,9 +70,9 @@ void motor_init(){
         table_raw_y[i]=sinf(angles[i])*gain;
         table_raw_theta[i]=lenghts[i]*gain;
         table_k[i]=k;
-        pid_ps[i]=ps[i]*gain;
-        pid_is[i]=is[i]*gain;
-        pid_ds[i]=ds[i]*gain;
+        pidc_init(&pid_controllors[i],ps[i],is[i],ds[i]);
+        priscaler_init(&pid_priscalers[i],priscale);
+        pid_results[i]=0;
     }
     
 }
@@ -156,85 +157,25 @@ void motor_fraction_rocate(int argc,char** argv){
     }
 }
 
-static q15_t motor_pid_0(void *context){
-    (void)context;
-    const static unsigned id=0;
-    static int wait=0;
-    static q15_t result=0;
-    static q1516_t sum_error=0;
-    if (wait++==taps){
-        wait=0;
-        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
-        int target=pid_targets[id];
-        int error=pid_errors[id]=target-now;
-        q4716_t sum=0;
-        sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
-        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
-        //update
-        pid_sum_errors[id]=clip32_add(error,sum_error);
-        pid_errors[id]=error;
-        result=clip16(sum>>16);
+q15_t motor_control(size_t id){
+    assert(id<TABLE_SIZE);
+    if (priscaler_count(&pid_priscalers[id])){
+        const int f = frequency/pid_priscalers[id].priscale;
+        const q1516_t feedback = bldc_read(id)*f<<16;
+        const q1516_t target = pid_targets[id]<<16;
+        pid_targets[id]=target;
+        bldc_clear(id);
+        pid_results[id]= pidc_control(&pid_controllors[id],target,feedback);
     }
-    return result;
+    return pid_results[id];
 }
 
-static q15_t motor_pid_1(void *context){
-    (void)context;
-    const static unsigned id=1;
-    static int wait=0;
-    static q15_t result=0;
-    static q1516_t last_error=0;
-    static q1516_t sum_error=0;
-    if (wait++==taps){
-        wait=0;
-        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
-        int target=pid_targets[id];
-        int error=pid_errors[id]=target-now;
-        q4716_t sum=0;
-        sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
-        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
-        //update
-        pid_sum_errors[id]=clip32_add(error,sum_error);
-        pid_errors[id]=error;
-        result=clip16(sum>>16);
-    }
-    return result;
-
-}
-
-static q15_t motor_pid_2(void *context){
-    (void)context;
-    const static unsigned id=2;
-    static int wait=0;
-    static q15_t result=0;
-    static q1516_t last_error=0;
-    static q1516_t sum_error=0;
-    if (wait++==taps){
-        wait=0;
-        int now= pid_nows[id] = bldc_read(id)*frequency;bldc_clear(id);
-        int target=pid_targets[id];
-        int error=pid_errors[id]=target-now;
-        q4716_t sum=0;
-        sum+= (q4716_t)pid_ps[id]*error;
-        sum+=(q4716_t)pid_is[id]*pid_sum_errors[id];
-        sum+=(q4716_t)pid_ds[id]*(error- pid_errors[id]);
-        //update
-        pid_sum_errors[id]=clip32_add(error,sum_error);
-        pid_errors[id]=error;
-        result=clip16(sum>>16);
-    }
-    return result;
-}
-
-const static control_func controls[TABLE_SIZE]={motor_pid_0,motor_pid_1,motor_pid_2};
 void motor_pulse(int argc,char** argv){     
     int i;
     for (i=0;i<TABLE_SIZE;i++){
         pid_targets[i]=(argc>i+1)?atoi(argv[i+1]):0.0;
         bldc_clear(i);
-        bldc_control(i,controls[i],NULL);
+        bldc_control(i,(control_func)motor_control,(void*)i);
     }
 }
 
@@ -254,17 +195,33 @@ void motor_move(int argc,char** argv){
         int pulse= (sum/1000)>>32;
         pid_targets[i]=pulse;
         bldc_clear(i);
-        bldc_control(i,controls[i],NULL);
+        bldc_control(i,(control_func)motor_control,(void*)i);
     }
 }
 
-void motor_watch(int argc,char* argv){
+static inline char* watch_view(int id,char* buffer,size_t size){
+    const pidc_t* pidc=&pid_controllors[id];
+    snprintf(buffer,size,
+        "id=%d,target=%d,now=%d,error=%d,sum=%d,result=%d\n",
+        id,pid_targets[id],pid_nows[id],pidc->error_last,pidc->error_sum,pid_results[id]);
+    return buffer;
+}
+
+
+
+void motor_watch(int argc,char** argv){
+    (void)argc,(void)argv;
     char buffer[BUFFER_SIZE]="";
     char tmp[BUFFER_SIZE];
     int i;
-    for (i=0;i<TABLE_SIZE;i++){
-        snprintf(tmp,BUFFER_SIZE,"id=%d,target=%d,now=%d,sum=%d\n",i,pid_targets[i],pid_nows[i],pid_errors[i]);
-        strcat(buffer,tmp);
+    
+    if (argc==1){
+        for (i=0;i<TABLE_SIZE;i++){
+            strcat(buffer,watch_view(i,tmp,BUFFER_SIZE));
+        }   
+    }else{
+        i=atoi(argv[1]);
+        watch_view(i,buffer,BUFFER_SIZE);
     }
     shell_puts(buffer);
 }
